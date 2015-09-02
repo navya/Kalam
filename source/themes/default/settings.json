@@ -1,0 +1,19 @@
+{
+	"Themename": "default",
+	"index": "index.html",
+	"other": "other.html",
+	"variables": {
+		"course_title": "text",
+		"course_title": "text",
+		"course_description": "textarea",
+		"course_session": "text",
+		"course_contact": "textarea",
+		"course_content": "textarea",
+		"announcements": "incri_mtext",
+		"notes": "incri_mtext",
+		"grading_schema": "textarea",
+		"instructors": "incri_text",
+		"course_objective": "textarea",
+		"Projects": "textarea"
+	}
+}

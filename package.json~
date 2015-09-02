@@ -1,0 +1,26 @@
+{
+  "name": "Kalam",
+  "version": "0.0.1",
+  "description": "A cross Platform Desktop Client which lets Busy Professors create a course Website and regularly update it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navya/Kalam"
+  },
+  "keywords": [
+    "kalam",
+    "course",
+    "professor",
+    "website",
+    "generator"
+  ],
+  "author": "bhanuc <bhanu423@gmail.com> (http://home.iitk.ac.in/~bhanuc/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/navya/Kalam/issues"
+  },
+  "homepage": "https://github.com/navya/Kalam"
+}
