@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EE618 {{name}}</title>
+    <title>EE618 {{course_title}}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="material.min.css">
@@ -16,10 +16,10 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">EE618: {{name}}</span>
+          <span class="mdl-layout-title">{{course_number}}: {{course_title}}</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-            By- S. Sundar Kumar Iyer
+            By- {{instructors}}
           </div>
         </div>
       </header>
@@ -41,42 +41,31 @@
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>Course Objective:</h4>
-            1. To give a broad overview of semiconductor device processing.<br>
-            2. To encourage students to look beyond standard processing.
+            {{course_objective}}
           </div>
         </div>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>Course Content:</h4>
-             {{coucon}}
+             {{course_content}}
           </div>
         </div>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>Schedule</h4>
-            Lectures: LEC: WF 15:30-17:00 at L-15 (Th 15:30-17:00 make up class if ever needed)
+            {{course_schedule}}
           </div>
         </div>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>References</h4>
-            S.M. Sze, “Semiconductor Devices Physics and Technology”, 2nd Edition, Wiley. (The new edition is vastly
-            improved and is a good reference book. Low cost Indian edition available.)
-             Sorab K. Ghandhi, “VLSI Fabrication Principles Silicon and Galium Arsenide”, 2nd Edition, Wiley. (A
-            classic book on processing. Low cost Indian edition available.)
-             Stanley Wolf and Richard N. Tauber, “Silicon Processing for the VLSI Era” Volume-1, Lattice Press.
-            (There is a series of these up to volume 4, the rest of the volumes focusing on device integration issues and
-            written by S. Wolf. The latest in processing is explained in a simple and lucid manner.)
-             James D. Plummer, Michael D. Deal and Peter B. Griffin, “Silicon VLSI Technology: Fundamentals,
-            Practice, and Modeling”, Prentice Hall Electronics and VLSI series. (A good text book.)
-             Stephen A. Campbell, “The Science and Engineering of Microelectronic Fabrication”, 2nd Edition, Oxford
-            University Press. (A good introductory book.)
+            {{course_reference}}
           </div>
         </div>
       </div>
       <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
         <div class="mdl-card__supporting-text">
-          {{condet}}
+          {{course_contact}}
         </div>
       </div>
       <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">

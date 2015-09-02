@@ -1,12 +1,12 @@
 ##Course Website Assistant for College Professors
 
-A cross Platform Desktop Client which lets Busy Professors create a course Website and regularly update it.
+A cross Platform Desktop Client which lets Busy Professors create a course Website and regularly update it. Based on Electron-Shell
 
 ### Already implemented features
 	
 	Download zip
 
-	Course Templates
+	Course Theme System
 
 	Material Theme
 
