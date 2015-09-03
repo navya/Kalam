@@ -9,14 +9,34 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/material.min.css">
     <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/alertify.min.css">
+    <link rel="stylesheet" href="css/alertify.rtl.min.css">
     <style>
+          #about {
+      visibility: hidden;
+      position: absolute;
+      left: 35%;
+      top: 0px;
+      width:100%;
+      height:20%;
+      text-align:center;
+      z-index: 1000;
+      }
+      #about  {
+      width:300px;
+      margin: 100px auto;
+      background-color: #fff;
+      border:1px solid #000;
+      padding:15px;
+      text-align:center;
+      }
     </style>
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Your Courses</span>
+          <span class="mdl-layout-title">Select Theme</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
           </div>
@@ -24,9 +44,7 @@
           <i class="material-icons">settings</i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
+            <li class="mdl-menu__item" onclick="toggleabout()">About</li>
           </ul>
         </div>
       </header>
@@ -50,12 +68,50 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-      <div class="mdl-grid demo-content">
-       Under construction
+      <div class="mdl-grid demo-content" id="main">
       </div>
       </main>
     </div>
     
     <script src="js/material.min.js"></script>
+    <script src="js/all.js"></script>    
+    <script type="text/javascript">
+    window.alertify = require('./js/alertify.min.js')
+    var fs = require('fs'),
+      path = require('path');
+
+    function getDirectories(srcpath) {
+      return fs.readdirSync(srcpath).filter(function(file) {
+        return fs.statSync(path.join(srcpath, file)).isDirectory();
+      });
+    }
+    var directories = getDirectories(path.join(__dirname, 'themes'))
+
+     str = "";
+    for (var i = directories.length - 1; i >= 0; i--) {
+      str += '<div class="demo-card-event mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing"><div class="mdl-card__title mdl-card--expand">            <h2 class="mdl-card__title-text">' + directories[i] + '</h2></div>          <div class="mdl-card__actions mdl-card--border" style="background-color: white;color: #46B6AC;">            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color: #46B6AC;" onclick=stheme("' + directories[i] + '")>Select theme</a> <div class="mdl-layout-spacer"></div>   <i class="material-icons">open_in_browser</i> </div>  </div>';
+    }
+    document.getElementById('main').innerHTML = str;
+
+    function stheme(name) {
+      fs.exists(path.join(__dirname, 'themes', name, 'settings.json'), function(exists) {
+        if (exists) {
+          alertify.success('exists.')
+          var filename = path.join(__dirname, 'themes', 'settings.json')
+          var jsonm = require(filename)
+          jsonm.ActiveTheme = name;
+          fs.writeFile(filename, JSON.stringify(jsonm), function(err) {
+            if (err) {
+              alertify.success('Theme not changed')
+            } else {
+              alertify.success('Theme changed')
+            }
+          });
+        } else {
+          alertify.success('Theme installed Incorrectly.')
+        }
+      });
+    }
+    </script>
   </body>
 </html>

@@ -5,30 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kalam</title>
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/material.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/alertify.min.css">
+    <link rel="stylesheet" href="css/alertify.rtl.min.css">
     <style>
+          #about {
+      visibility: hidden;
+      position: absolute;
+      left: 35%;
+      top: 0px;
+      width:100%;
+      height:20%;
+      text-align:center;
+      z-index: 1000;
+      }
+      #about  {
+      width:300px;
+      margin: 100px auto;
+      background-color: #fff;
+      border:1px solid #000;
+      padding:15px;
+      text-align:center;
+      }
     </style>
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Old Courses</span>
+          <span class="mdl-layout-title">Your Courses</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-
           </div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">settings</i>
+          <i class="material-icons">settings</i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
+            <li class="mdl-menu__item" onclick="toggleabout()">About</li>
           </ul>
         </div>
       </header>
@@ -52,13 +68,58 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid demo-content" id="main">
-                            <h2 class="mdl-card__title-text">     Under construction
-
+      <div class="mdl-grid demo-content">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col"></div>
+          <div class="mdl-cell mdl-cell--6-col"><div  id="createform">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="course_title" />
+              <label class="mdl-textfield__label" for="title">Title of the Course</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="course_number" />
+              <label class="mdl-textfield__label" for="num">Course Number</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="course_session" />
+              <label class="mdl-textfield__label" for="course_session">As Taught in</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield">
+              <button class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="createcourse()">
+              Create
+              </button>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield">
+              You can Add More information Later
+            </div>
+          </div></div>
+          <div class="mdl-cell mdl-cell--2-col"></div>
         </div>
+        
+      </div>
       </main>
     </div>
-      
     <script src="js/material.min.js"></script>
+    <script type="text/javascript">
+    window.alertify = require('./js/alertify.min.js')
+    </script>
+    <script src="js/pouchdb-4.0.0.min.js"></script>
+    <script src="js/db_func.js"></script>    
+    <script type="text/javascript">
+    var getelem = document.getElementById.bind(document);
+    var createcourse = function () {
+      var course = {};
+      course.title = getelem("course_title").value;
+      course.number = getelem("course_number").value;
+      course.ati = getelem("course_session").value;
+      course._id = new Date().toISOString();
+      add_course(course);
+    }
+    
+    function toggleabout() {
+        el = document.getElementById("about");
+        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    }
+    </script>
   </body>
 </html>

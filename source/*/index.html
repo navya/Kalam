@@ -5,12 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kalam</title>
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/mat_font.css" rel="stylesheet">
     <link rel="stylesheet" href="css/material.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
+      #about {
+      visibility: hidden;
+      position: absolute;
+      left: 35%;
+      top: 0px;
+      width:100%;
+      height:20%;
+      text-align:center;
+      z-index: 1000;
+      }
+      #about  {
+      width:300px;
+      margin: 100px auto;
+      background-color: #fff;
+      border:1px solid #000;
+      padding:15px;
+      text-align:center;
+      }
     </style>
   </head>
   <body>
@@ -20,15 +37,12 @@
           <span class="mdl-layout-title">Your Courses</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-
           </div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">settings</i>
+          <i class="material-icons">settings</i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
-            <li class="mdl-menu__item">Legal information</li>
+            <li class="mdl-menu__item" onclick="toggleabout()">About</li>
           </ul>
         </div>
       </header>
@@ -52,14 +66,23 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid demo-content">
-      Reminders incoming<br>
-             Under construction
-
-        </div>
+      <div class="mdl-grid demo-content" id="main">
+      </div>
       </main>
     </div>
-      
+      <div id="about">
+     <div>Developed with love at navya . <br><br>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggleabout()">Close</button> 
+</div>
     <script src="js/material.min.js"></script>
+    <script src="js/pouchdb-4.0.0.min.js"></script>
+    <script src="js/db_func.js"></script>
+    <script src="js/all.js"></script>    
+    <script type="text/javascript">
+    window.onload = function() {
+      showcourse("all")
+    }
+
+       </script>
   </body>
 </html>
