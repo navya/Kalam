@@ -32,10 +32,12 @@ A cross Platform Desktop Client which lets Busy Professors create a course Websi
 	chmod +x build-linux-x64.sh
 	./build-linux-x64.sh
 
+	Now you can run the program from kalam executable inside app folder.
+	Make changes in the app/resources/default_app to see changes in realtime and run sync_app_with_source.sh before pushing
 
 	More Powerful build process coming
 
 ##Contributions : 
 Please test and open a issue. Before Working on anything major, please check if its already being worked upon.
 
-##Project By - Bhanu Pratap Chaudhary
+###Project By - Bhanu Pratap Chaudhary
