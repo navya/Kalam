@@ -13,49 +13,61 @@
     <link rel="stylesheet" href="css/alertify.rtl.min.css">
     <link rel="stylesheet" href="css/tiny_skin.min.css">
     <link rel="stylesheet" href="css/content.min.css">
-
     <style>
-      #about {
-      visibility: hidden;
-      position: absolute;
-      left: 35%;
-      top: 0px;
-      width:100%;
-      height:20%;
-      text-align:center;
-      z-index: 1000;
-      }
-      #about  {
-      width:300px;
-      margin: 100px auto;
-      background-color: #fff;
-      border:1px solid #000;
-      padding:15px;
-      text-align:center;
-      }
-
+    #sftp {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:70%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    #about {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:20%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
     #overlay {
-     visibility: hidden;
-     position: absolute;
-     left: 35%;
-     top: 0px;
-     width:100%;
-     height:60%;
-     text-align:center;
-     z-index: 1000;
-}
-#overlay  {
-     width:300px;
-     margin: 100px auto;
-     background-color: #fff;
-     border:1px solid #000;
-     padding:15px;
-     text-align:center;
-}
-.overlay {
-   border:1px solid #000;
-  background-color: #fff;
-}
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:60%;
+    text-align:center;
+    z-index: 1000;
+    }
+    #overlay  {
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    .overlay {
+    border:1px solid #000;
+    background-color: #fff;
+    }
     </style>
   </head>
   <body>
@@ -94,224 +106,70 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-
-             <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-              <span id="fields"></span>
-              
-              <div class="mdl-card__actions">
-                <a onclick="gruntcourse()" class="mdl-button">Update Course</a>&nbps;<a onclick="generatecourse('zip')" class="mdl-button">Create zip</a>&nbps;<a onclick="generatecourse('folder')" class="mdl-button">Create folder</a>
-              </div>
-            </div>
-          </section>
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+          <span id="fields"></span>
+          
+          <div class="mdl-card__actions">
+            <a onclick="gruntcourse()" class="mdl-button">Update Course</a>&nbsp;<a onclick="generatecourse('zip')" class="mdl-button">Create zip</a>&nbsp;<a onclick="generatecourse('folder')" class="mdl-button">Create folder</a>
+          </div>
+        </div>
+      </section>
       </main>
     </div>
     <div id="overlay">
-     <div>You can Update the <span id="formfield"></span> below
-            <textarea id="modalinput" style="width:100%"></textarea>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay()">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield()">Update</button>
-     </div>
-     
-</div>
-    <script src="js/material.min.js"></script>
-    <script src="js/routie.js"></script>
-    <script src="js/tinymce.min.js"></script>
-    <script type="text/javascript">
-    window.alertify = require('./js/alertify.min.js')
-    window.handlebars = require('./js/handlebars-v3.0.3.js')
-    window.JSZip = require('./js/jszip.min.js')
-    window.saveAs = require('./js/FileSaver.js')
-    </script>
-    <script src="js/pouchdb-4.0.0.min.js"></script>
-    <script src="js/db_func.js"></script>
-    <script src="js/all.js"></script>    
-    <script type="text/javascript">
-    tinymce.init({
-    selector: "textarea",
-    plugins: [
-        "advlist autolink lists link image charmap print preview anchor",
-        "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table contextmenu paste"
-    ],
-    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-});
+      <div>You can Update the <span id="formfield"></span> below
+      <textarea id="modalinput" style="width:100%"></textarea>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay()">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield()">Update</button>
+    </div>
+    
+  </div>
+  <div id="about">
+    <div>Developed with love at navya . <br><br>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggleabout()">Close</button>
+    </div>
+  </div>
+  <div id="sftp">
+    <div>Enter the SFTP Credentials and Options to Push the course. <br><br>
+     <input type="checkbox" id="checkbox-iitk" class="mdl-checkbox__input"  onchange="iitksettings()" />
+     <span class="mdl-checkbox__label">IITK</span>
+           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="host" required />
+              <label class="mdl-textfield__label" for="host">Host Address</label>
+                          </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
-    var getelem = document.getElementById.bind(document),
-      fs = require('fs'),
-      path = require('path');
-      window.course = {};
-      window.keys = {};
-
-    function updatefield() {
-      var id = getelem('formfield').innerHTML;
-      getelem(id).innerHTML = tinyMCE.activeEditor.getContent();
-      overlay()
-    }
-    function modify_field(id){
-      //console.log(id)
-      getelem('modalinput').value = window.course[id];
-      getelem('formfield').innerHTML = id;
-      overlay()
-    }
-
-    function overlay() {
-
-      el = document.getElementById("overlay");
-      el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-    }
-
-    var template = {
-      "text": function(id) {
-        return ''
-      }
-    }
-
-function arrayUnique(array) {
-  var a = array.concat();
-  for (var i = 0; i < a.length; ++i) {
-    for (var j = i + 1; j < a.length; ++j) {
-      if (a[i] === a[j])
-        a.splice(j--, 1);
-    }
-  }
-  return a;
-};
-function getcoursebyid(id) {
-  var filename = path.join(__dirname, 'themes', 'settings.json');
-  var jsonm = require(filename);
-  var themename = jsonm.ActiveTheme;
-  var themepath = path.join(__dirname, 'themes', themename, 'settings.json');
-  var themefields = require(themepath).variables;
-  db.get(id).then(function(course) {
-    localStorage.setItem('course', JSON.stringify(course));
-    localStorage.setItem('id', course._id);
-    window.course = course;
-    var keys = Object.keys(course);
-    keys = arrayUnique(keys.concat(Object.keys(themefields)))
-    window.keys = keys
-    var str = '';
-    for (var i = keys.length - 1; i >= 0; i--) {
-      if (keys[i] !== '_rev' && keys[i] !== '_id') {
-        str += '<div class="mdl-card__supporting-text" onclick=modify_field("' + keys[i] + '") > <b>' + keys[i] + ':</b> <span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
-      }
-    };
-    getelem("fields").innerHTML = str;
-  }).catch(function(err) {
-    console.log(err);
-  });
-}
-     //This function sets up the page, adding inputs elements of the template
-     //TODO - Add input fields for course fields not in template but in course ( probably an interface to choose any type)
-
-
-    function getcourse() {
-      var keys = window.keys;
-      var obj = {}
-      for (var i = keys.length - 1; i >= 0; i--) {
-        if (keys[i] !== '_rev' && keys[i] !== '_id') {
-          obj[keys[i]] = getelem(keys[i]).innerHTML
-        }
-      };
-      return obj
-    }
-
-    function gruntcourse() {
-      var course = getcourse()
-      updatecoursebyid(localStorage.id, course)
-      // generatecourse(course)
-    }
-
-    function getFiles(srcpath) {
-      return fs.readdirSync(srcpath).filter(function(file) {
-        return fs.statSync(path.join(srcpath, file)).isFile();
-      });
-    }
-
-    function generatezip(course, compiledsource, files, themepath) {
-      var zip = new JSZip();
-      var keys = Object.keys(compiledsource)
-      for (var i = keys.length - 1; i >= 0; i--) {
-        var name = keys[i].substr(0, keys[i].lastIndexOf(".")) + ".html";
-        zip.file(name, compiledsource[keys[i]](course));
-      }
-      var tfile;
-      for (var i = files.length - 1; i >= 0; i--) {
-        if (files[i].split('.').pop() !== 'hbs') {
-          tfile = fs.readFileSync(path.join(themepath, files[i]), "utf8");
-          zip.file(files[i], tfile);
-        }
-      }
-      var content = zip.generate({
-        type: "blob"
-      });
-      saveAs(content, "course.zip");
-    }
-
-    function createfolder(course, compiledsource, files, themepath){
-       var fs = require('fs');
-      var dir = path.join(__dirname ,'courses', course.title);
-        if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        }
-      var keys = Object.keys(compiledsource)
-      for (var i = keys.length - 1; i >= 0; i--) {
-        var name = keys[i].substr(0, keys[i].lastIndexOf(".")) + ".html";
-        fs.writeFileSync(path.join(dir,name), compiledsource[keys[i]](course));
-        // zip.file(name, compiledsource[keys[i]](course));
-      }
-      var tfile;
-      //TODO implement stream to copy 
-      for (var i = files.length - 1; i >= 0; i--) {
-        if (files[i].split('.').pop() !== 'hbs') {
-          tfile = fs.readFileSync(path.join(themepath, files[i]), "utf8");
-        fs.writeFileSync(path.join(dir,files[i]), tfile);
-          // zip.file(files[i], tfile);
-        }
-      }
-      alertify.success("Folder has Been Created")
-      uploadsftp()
-
-    }
-
-    function generatecourse(method) {
-      var course = getcourse()
-      var compiledsource = {};
-      var filename = path.join(__dirname, 'themes', 'settings.json');
-      var jsonm = require(filename);
-      var themename = jsonm.ActiveTheme;
-      var themepath = path.join(__dirname, 'themes', themename);
-      var files = getFiles(themepath);
-      course = course ? course : JSON.parse(localStorage.course);
-      for (var i = files.length - 1; i >= 0; i--) {
-        if (files[i].split('.').pop() === 'hbs') {
-          var source = fs.readFileSync(path.join(themepath, files[i]), "utf8");
-          compiledsource[files[i]] = handlebars.compile(source);
-        }
-      }
-      if( method == 'zip') {
-          generatezip(course, compiledsource, files, themepath)
-      } else {
-          createfolder(course, compiledsource, files, themepath)
-      }
-    }
-
-    function uploadsftp() {
-      var client = require('scp2');
-      var course = getcourse()
-      var dir = path.join(__dirname, 'courses', course.title);
-
-      var url = 'user:pass@webhome.cc.iitk.ac.in:/www/user/www/course/' + course.title
-      client.scp(dir, url, function(err) {
-        if (!err) {
-          alertify.success('Upload has been successful')
-        }
-      })
-
-    }
-
-    routie('course/:id', function(id) {
-      getcoursebyid(id);
-    });
-     </script>
-  </body>
+              <input class="mdl-textfield__input" type="text" id="username" required/>
+              <label class="mdl-textfield__label" for="username">Username</label>
+                                        </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" id="password" required/>
+              <label class="mdl-textfield__label" for="password">Password</label>                         
+               </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="directory" required/>
+              <label class="mdl-textfield__label" for="directory">Directory to Upload</label>
+                                        </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="folder" required/>
+              <label class="mdl-textfield__label" for="folder">Course Folder Name(leave empty for default)</label>
+            </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="uploadsftp()">Upload</button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="sftp()">Cancel</button>
+    </div>
+  </div>
+  <script src="js/material.min.js"></script>
+  <script src="js/routie.js"></script>
+  <script src="js/tinymce.min.js"></script>
+  <script type="text/javascript">
+  window.alertify = require('./js/alertify.min.js')
+  window.handlebars = require('./js/handlebars-v3.0.3.js')
+  window.JSZip = require('./js/jszip.min.js')
+  window.saveAs = require('./js/FileSaver.js')
+  </script>
+  <script src="js/pouchdb-4.0.0.min.js"></script>
+  <script src="js/db_func.js"></script>
+  <script src="js/all.js"></script>
+  <script src="js/single.js"></script>
+</body>
 </html>
