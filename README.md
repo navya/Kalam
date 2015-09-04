@@ -10,13 +10,15 @@ A cross Platform Desktop Client which lets Busy Professors create a course Websi
 
 	Material Theme
 
+	Folder Generation
+
 ### Pending features
 	
 	Add Media Uploads
 	
 	Push to Github Pages
 
-	SFTP Push
+	SFTP Push(Almost done, only UI integration left)
 
 	Implement Custom pages
 
@@ -39,7 +41,11 @@ A cross Platform Desktop Client which lets Busy Professors create a course Websi
 
 	Now you can run the program from kalam executable inside app folder.
 	Make changes in the app/resources/default_app(linux) and app/Kalam.app/Contents/Resources/default_app (Mac) to see changes in realtime and run sync_app_with_source-platform.sh before pushing
+	IMPORTANT: Manually delete the courses folder generated in the default_app when you upload via FTP
 	More Powerful build process coming
+
+##Why is NodeModules folder in the sources:
+	Well the nodemodules currently in use are js only modules so distributing it along with the source and app does not require npm to be installed. Its not that large actually and most useless files have been deleted.
 
 ##Contributions : 
 Please test and open a issue. Before Working on anything major, please check if its already being worked upon.
