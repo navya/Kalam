@@ -100,7 +100,7 @@
               <span id="fields"></span>
               
               <div class="mdl-card__actions">
-                <a onclick="gruntcourse()" class="mdl-button">Update Course and Generate</a>
+                <a onclick="gruntcourse()" class="mdl-button">Update Course</a>&nbps;<a onclick="generatecourse('zip')" class="mdl-button">Create zip</a>&nbps;<a onclick="generatecourse('folder')" class="mdl-button">Create folder</a>
               </div>
             </div>
           </section>
@@ -218,7 +218,7 @@ function getcoursebyid(id) {
     function gruntcourse() {
       var course = getcourse()
       updatecoursebyid(localStorage.id, course)
-      generatecourse(course)
+      // generatecourse(course)
     }
 
     function getFiles(srcpath) {
@@ -247,7 +247,34 @@ function getcoursebyid(id) {
       saveAs(content, "course.zip");
     }
 
-    function generatecourse(course) {
+    function createfolder(course, compiledsource, files, themepath){
+       var fs = require('fs');
+      var dir = path.join(__dirname ,'courses', course.title);
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+      var keys = Object.keys(compiledsource)
+      for (var i = keys.length - 1; i >= 0; i--) {
+        var name = keys[i].substr(0, keys[i].lastIndexOf(".")) + ".html";
+        fs.writeFileSync(path.join(dir,name), compiledsource[keys[i]](course));
+        // zip.file(name, compiledsource[keys[i]](course));
+      }
+      var tfile;
+      //TODO implement stream to copy 
+      for (var i = files.length - 1; i >= 0; i--) {
+        if (files[i].split('.').pop() !== 'hbs') {
+          tfile = fs.readFileSync(path.join(themepath, files[i]), "utf8");
+        fs.writeFileSync(path.join(dir,files[i]), tfile);
+          // zip.file(files[i], tfile);
+        }
+      }
+      alertify.success("Folder has Been Created")
+      uploadsftp()
+
+    }
+
+    function generatecourse(method) {
+      var course = getcourse()
       var compiledsource = {};
       var filename = path.join(__dirname, 'themes', 'settings.json');
       var jsonm = require(filename);
@@ -261,8 +288,25 @@ function getcoursebyid(id) {
           compiledsource[files[i]] = handlebars.compile(source);
         }
       }
-      console.log(course, compiledsource, files, themepath)
-      generatezip(course, compiledsource, files, themepath)
+      if( method == 'zip') {
+          generatezip(course, compiledsource, files, themepath)
+      } else {
+          createfolder(course, compiledsource, files, themepath)
+      }
+    }
+
+    function uploadsftp() {
+      var client = require('scp2');
+      var course = getcourse()
+      var dir = path.join(__dirname, 'courses', course.title);
+
+      var url = 'user:pass@webhome.cc.iitk.ac.in:/www/user/www/course/' + course.title
+      client.scp(dir, url, function(err) {
+        if (!err) {
+          alertify.success('Upload has been successful')
+        }
+      })
+
     }
 
     routie('course/:id', function(id) {

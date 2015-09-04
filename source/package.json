@@ -1,5 +1,8 @@
 {
   "name": "Kalam",
   "productName": "Kalam",
-  "main": "main.js"
+  "main": "main.js",
+  "dependencies": {
+    "scp2": "^0.2.2"
+  }
 }
