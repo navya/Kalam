@@ -28,12 +28,17 @@ A cross Platform Desktop Client which lets Busy Professors create a course Websi
  Download the release from [here](https://github.com/navya/Kalam/releases). Installer coming soon. Only Linux binary available. Open a issue if you want to maintain windows and mac release binaries.
 
 ##Dev Build Process
-	Run the following command. 
+	Run the following command on linux. 
 	chmod +x build-linux-x64.sh
 	./build-linux-x64.sh
 
+	And on Mac
+
+	chmod +x build-darwin-x64.sh
+	./build-darwin-x64.sh
+
 	Now you can run the program from kalam executable inside app folder.
-	Make changes in the app/resources/default_app to see changes in realtime and run sync_app_with_source.sh before pushing
+	Make changes in the app/resources/default_app(linux) and app/Kalam.app/Contents/Resources/default_app (Mac) to see changes in realtime and run sync_app_with_source-platform.sh before pushing
 	More Powerful build process coming
 
 ##Contributions : 
