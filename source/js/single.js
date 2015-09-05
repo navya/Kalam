@@ -14,30 +14,59 @@
  window.course = {};
  window.keys = {};
 
- function updatefield() {
-   var id = getelem('formfield').innerHTML;
-   getelem(id).innerHTML = tinyMCE.activeEditor.getContent();
-   overlay()
- }
-
- function modify_field(id) {
+ function updatefield(type) {
+  var type1 = 'formfield-' + type;
+  console.log(type)
+   var id = getelem(type1).innerHTML;
    console.log(id)
-      overlay()
-  // 
-   getelem('modalinput').value = window.course[id];
-   getelem('formfield').innerHTML = id;
-tinyMCE.activeEditor.setContent(window.course[id])
+   // getelem(id).innerHTML = tinyMCE.activeEditor.getContent();
+   getelem(id).innerHTML = template[type](id, 'get')
+   overlay(type)
+
  }
 
- function overlay() {
+ function modify_field(str) {
+   var tmp = str.split(',')
+   type = tmp[1]
+   id = tmp[0]
+   overlay(type)
+   getelem('formfield-' + type).innerHTML = id
+   template[type](id, null, window.course[id])
+   // getelem('modalinput').value = window.course[id];
+   // getelem('formfield').innerHTML = id;
+   //tinyMCE.activeEditor.setContent(window.course[id])
+ }
 
-   el = document.getElementById("overlay");
+ function overlay(type) {
+   type = "overlay-" + type;
+   el = document.getElementById(type);
    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
  }
 
  var template = {
-   "text": function(id) {
-     return ''
+   "text": function(id, get, set) {
+     if (get) {
+       return getelem('text_input').value
+     }
+     if (set) {
+       return getelem('text_input').value = set
+     }
+   },
+   "textarea": function(id, get, set) {
+     if (get) {
+       return tinyMCE.activeEditor.getContent()
+     }
+     if (set) {
+       return tinyMCE.activeEditor.setContent(window.course[id])
+     }
+   },
+   "incri_mtext": function(id, get, set) {
+     if (get) {
+       return tinyMCE.activeEditor.getContent()
+     }
+     if (set) {
+       return inyMCE.activeEditor.setContent(window.course[id])
+     }
    }
  }
 
@@ -62,13 +91,12 @@ tinyMCE.activeEditor.setContent(window.course[id])
      localStorage.setItem('course', JSON.stringify(course));
      localStorage.setItem('id', course._id);
      window.course = course;
-     var keys = Object.keys(course);
-     keys = arrayUnique(keys.concat(Object.keys(themefields)))
+     var keys = Object.keys(themefields);
      window.keys = keys
      var str = '';
      for (var i = keys.length - 1; i >= 0; i--) {
        if (keys[i] !== '_rev' && keys[i] !== '_id') {
-         str += '<div class="mdl-card__supporting-text" onclick=modify_field("' + keys[i] + '") > <b>' + keys[i] + ':</b> <span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
+         str += '<div class="mdl-card__supporting-text" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> <span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
        }
      };
      getelem("fields").innerHTML = str;
@@ -125,7 +153,7 @@ tinyMCE.activeEditor.setContent(window.course[id])
 
  function createfolder(course, compiledsource, files, themepath) {
    var fs = require('fs');
-   var dir = path.join(__dirname, 'courses', course.title);
+   var dir = path.join(__dirname, 'courses', course.course_title);
    if (!fs.existsSync(dir)) {
      fs.mkdirSync(dir);
    }
@@ -174,10 +202,10 @@ tinyMCE.activeEditor.setContent(window.course[id])
  function uploadsftp() {
    var client = require('scp2');
    var course = getcourse()
-   var dir = path.join(__dirname, 'courses', course.title);
+   var dir = path.join(__dirname, 'courses', course.course_title);
    var host = getelem('host').value;
-    var directory = getelem('directory').value;
-   var hostpath = path.join(directory, "course", course.title);
+   var directory = getelem('directory').value;
+   var hostpath = path.join(directory, "course", course.course_title);
 
    var username = getelem('username').value;
    var password = getelem('password').value;
@@ -201,8 +229,8 @@ tinyMCE.activeEditor.setContent(window.course[id])
      checker = 0
    }
    if (checker) {
-    console.log(url)
-    console.log(dir)
+     console.log(url)
+     console.log(dir)
      client.scp(dir, url, function(err) {
        if (!err) {
          alertify.success('Upload has been successful')

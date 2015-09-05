@@ -12,10 +12,10 @@
 		"course_schedule": "textarea",
 		"course_reference": "textarea",
 		"course_content": "textarea",
-		"announcements": "incri_mtext",
-		"notes": "incri_mtext",
+		"announcements": "textarea",
+		"notes": "textarea",
 		"grading_schema": "textarea",
-		"instructors": "incri_text",
+		"instructors": "text",
 		"course_objective": "textarea",
 		"Projects": "textarea"
 	}
