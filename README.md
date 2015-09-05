@@ -12,13 +12,13 @@ A cross Platform Desktop Client which lets Busy Professors create a course Websi
 
 	Folder Generation
 
+	SFTP Push
+
 ### Pending features
 	
 	Add Media Uploads
 	
 	Push to Github Pages
-
-	SFTP Push(Almost done, only UI integration left)
 
 	Implement Custom pages
 
