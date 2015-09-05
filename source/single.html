@@ -14,7 +14,50 @@
     <link rel="stylesheet" href="css/tiny_skin.min.css">
     <link rel="stylesheet" href="css/content.min.css">
     <style>
+    #add-notes {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 80px;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    } 
+    #upload-sftp {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 40px;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    } 
+    #up-notes{
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
     #sftp {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:70%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    #notes_modal{
     visibility: hidden;
     position: absolute;
     left: 35%;
@@ -125,7 +168,7 @@
           <span id="fields"></span>
           
           <div class="mdl-card__actions">
-            <a onclick="gruntcourse()" class="mdl-button">Update Course</a>&nbsp;<a onclick="generatecourse('zip')" class="mdl-button">Create zip</a>&nbsp;<a onclick="generatecourse('folder')" class="mdl-button">Create folder</a>
+            <a onclick="gruntcourse()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Save Course</a>&nbsp;<a onclick="generatecourse('zip')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Create zip</a>&nbsp;<a onclick="generatecourse('folder')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Update folder</a>
           </div>
         </div>
       </section>
@@ -149,6 +192,11 @@
   <div id="about">
     <div>Developed with love at navya . <br><br>
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggleabout()">Close</button>
+    </div>
+  </div>
+  <div id="notes_modal">
+    <div>Notes Management Screen Will Come Here<br><br>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="notes_modal()">Close</button>
     </div>
   </div>
   <div id="sftp">
@@ -175,6 +223,9 @@
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="sftp()">Cancel</button>
     </div>
   </div>
+  <a id="add-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="notes_modal()">Add Notes</a>
+  <a id="up-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="gruntcourse()">Save Course</a>
+    <a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder')">Upload Course</a>
   <script src="js/material.min.js"></script>
   <script src="js/routie.js"></script>
   <script src="js/tinymce.min.js"></script>

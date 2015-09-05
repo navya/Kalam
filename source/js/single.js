@@ -16,9 +16,7 @@
 
  function updatefield(type) {
   var type1 = 'formfield-' + type;
-  console.log(type)
    var id = getelem(type1).innerHTML;
-   console.log(id)
    // getelem(id).innerHTML = tinyMCE.activeEditor.getContent();
    getelem(id).innerHTML = template[type](id, 'get')
    overlay(type)
@@ -41,6 +39,10 @@
  function overlay(type) {
    type = "overlay-" + type;
    el = document.getElementById(type);
+   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+ }
+ function notes_modal(){
+   el = document.getElementById("notes_modal");
    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
  }
 
