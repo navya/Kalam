@@ -105,20 +105,16 @@
     </script>
     <script src="js/pouchdb-4.0.0.min.js"></script>
     <script src="js/db_func.js"></script>    
+    <script src="js/all.js"></script>    
     <script type="text/javascript">
     var getelem = document.getElementById.bind(document);
     var createcourse = function () {
       var course = {};
-      course.title = getelem("course_title").value;
-      course.number = getelem("course_number").value;
-      course.ati = getelem("course_session").value;
+      course.course_title = getelem("course_title").value;
+      course.course_number = getelem("course_number").value;
+      course.course_session = getelem("course_session").value;
       course._id = new Date().toISOString();
       add_course(course);
-    }
-    
-    function toggleabout() {
-        el = document.getElementById("about");
-        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
     }
     </script>
   </body>

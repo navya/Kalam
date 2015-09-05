@@ -31,7 +31,8 @@
    id = tmp[0]
    overlay(type)
    getelem('formfield-' + type).innerHTML = id
-   template[type](id, null, window.course[id])
+   existing_value = (window.course[id] || "");
+   template[type](id, null, existing_value)
    // getelem('modalinput').value = window.course[id];
    // getelem('formfield').innerHTML = id;
    //tinyMCE.activeEditor.setContent(window.course[id])
@@ -57,7 +58,7 @@
        return tinyMCE.activeEditor.getContent()
      }
      if (set) {
-       return tinyMCE.activeEditor.setContent(window.course[id])
+       return tinyMCE.activeEditor.setContent(set)
      }
    },
    "incri_mtext": function(id, get, set) {
@@ -153,7 +154,7 @@
 
  function createfolder(course, compiledsource, files, themepath) {
    var fs = require('fs');
-   var dir = path.join(__dirname, 'courses', course.course_title);
+   var dir = path.join(__dirname, 'courses', course.course_number);
    if (!fs.existsSync(dir)) {
      fs.mkdirSync(dir);
    }
@@ -202,10 +203,10 @@
  function uploadsftp() {
    var client = require('scp2');
    var course = getcourse()
-   var dir = path.join(__dirname, 'courses', course.course_title);
+   var dir = path.join(__dirname, 'courses', course.course_number);
    var host = getelem('host').value;
    var directory = getelem('directory').value;
-   var hostpath = path.join(directory, "course", course.course_title);
+   var hostpath = path.join(directory, "course", course.course_number);
 
    var username = getelem('username').value;
    var password = getelem('password').value;
@@ -233,7 +234,8 @@
      console.log(dir)
      client.scp(dir, url, function(err) {
        if (!err) {
-         alertify.success('Upload has been successful')
+         alertify.success('Upload has been successful');
+         sftp();
        }
      })
    }
