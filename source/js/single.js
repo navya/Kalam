@@ -15,7 +15,7 @@
  window.keys = {};
 
  function updatefield(type) {
-  var type1 = 'formfield-' + type;
+   var type1 = 'formfield-' + type;
    var id = getelem(type1).innerHTML;
    // getelem(id).innerHTML = tinyMCE.activeEditor.getContent();
    getelem(id).innerHTML = template[type](id, 'get')
@@ -31,9 +31,6 @@
    getelem('formfield-' + type).innerHTML = id
    existing_value = (window.course[id] || "");
    template[type](id, null, existing_value)
-   // getelem('modalinput').value = window.course[id];
-   // getelem('formfield').innerHTML = id;
-   //tinyMCE.activeEditor.setContent(window.course[id])
  }
 
  function overlay(type) {
@@ -41,7 +38,8 @@
    el = document.getElementById(type);
    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
  }
- function notes_modal(){
+
+ function notes_modal() {
    el = document.getElementById("notes_modal");
    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
  }
@@ -256,6 +254,43 @@
      alertify.warning('Replace user with your username in directory')
    }
  }
+
+ function getfilevalue() {
+   var files = getelem('file_modal').files;
+   var course = window.course;
+   // var files = evt.target.files; // FileList object
+   var dir = path.join(__dirname,'courses', course.course_number);
+   // files is a FileList of File objects. List some properties.
+   if (!fs.existsSync(dir)) {
+     fs.mkdirSync(dir);
+   }
+   var dir_down = path.join(dir, 'downloads');
+   console.log(dir_down)
+   if (!fs.existsSync(dir_down)) {
+    console.log(dir_down)
+     fs.mkdirSync(dir_down);
+   }
+   var output = [];
+   for (var i = 0, f; f = files[i]; i++) {
+     var reader = new FileReader();
+
+     output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+       f.size, ' bytes, last modified: ',
+       f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+       '</li>');
+     reader.onload = (function(theFile) {
+       return function(e) {
+
+         fs.writeFileSync(path.join(dir_down, theFile.name), e.target.result);
+       };
+     })(f);
+
+     // Read in the image file as a data URL.
+     reader.readAsDataURL(f);
+   }
+   document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+ }
+
 
  routie('course/:id', function(id) {
    getcoursebyid(id);
