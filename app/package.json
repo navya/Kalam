@@ -1,10 +1,10 @@
 {
-  "name": "Kalam",
-  "productName": "Kalam",
+  "name": "kalam",
+  "productName": "kalam",
   "identifier": "com.navya.kalam",
   "description": "A cross Platform Desktop Client which lets Busy Professors create a course WebPage and regularly update it.",
   "version": "0.0.2",
-  "author": "bhanuc <bhanu423@gmail.com> (http://bhanu.io)",
+  "author": "Bhanu Pratap Chaudhary <dev@bhanu.io>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/navya/Kalam/issues"

@@ -1,5 +1,5 @@
 #You have to dream before your dreams can come true. 
-- APJ Abdul Kalam
+  -APJ Abdul Kalam
 
 ##Course WebPage Assistant for College Professors
 
@@ -43,3 +43,5 @@ Please test and open a issue. Before Working on anything major, please check if 
 ###Project By - Bhanu Pratap Chaudhary
 
 ###Powered By - Electron
+
+Colors - Red #fd0000 http://www.norio.be/android-feature-graphic-generator/
