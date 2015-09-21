@@ -1,8 +1,9 @@
-#You have to dream before your dreams can come true. - APJ Abdul Kalam
+#You have to dream before your dreams can come true. 
+- APJ Abdul Kalam
 
-##Course Website Assistant for College Professors
+##Course WebPage Assistant for College Professors
 
-A cross Platform Desktop Client which lets Busy Professors create a course Website and regularly update it.
+A cross Platform Desktop Client which lets Busy Professors create a course WebPage and regularly update it.
 
 
 ### Already implemented features
@@ -33,7 +34,7 @@ A cross Platform Desktop Client which lets Busy Professors create a course Websi
  Download the release from [here](https://github.com/navya/Kalam/releases).
 
 ##Dev Build Process
-	Just Read [DEV-README.md](https://github.com/navya/Kalam/DEV-README.md)
+	Just Read [DEV-README](https://github.com/navya/Kalam/blob/master/DEV-README.md)
 
 
 ##Contributions : 
