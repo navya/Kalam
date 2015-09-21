@@ -97,7 +97,7 @@
      var str = '';
      for (var i = keys.length - 1; i >= 0; i--) {
        if (keys[i] !== '_rev' && keys[i] !== '_id') {
-         str += '<div class="mdl-card__supporting-text" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> <span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
+         str += '<div class="mdl-card"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div'
        }
      };
      getelem("fields").innerHTML = str;
