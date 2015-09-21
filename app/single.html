@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kalam</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/material.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/alertify.min.css">
+    <link rel="stylesheet" href="css/alertify.rtl.min.css">
+    <link rel="stylesheet" href="css/tiny_skin.min.css">
+    <link rel="stylesheet" href="css/content.min.css">
+    <style>
+    #add-notes {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 80px;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    } 
+    #upload-sftp {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 40px;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    } 
+    #up-notes{
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    #sftp {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:70%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    #notes_modal{
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:70%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    #about {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:20%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    #overlay-text {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:60%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    #overlay-textarea {
+    visibility: hidden;
+    position: absolute;
+    left: 35%;
+    top: 0px;
+    width:100%;
+    height:60%;
+    text-align:center;
+    z-index: 1000;
+    width:300px;
+    margin: 100px auto;
+    background-color: #fff;
+    border:1px solid #000;
+    padding:15px;
+    text-align:center;
+    }
+    .overlay {
+    border:1px solid #000;
+    background-color: #fff;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Course</span>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+          <i class="material-icons">settings</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item" onclick="toggleabout()">About</li>
+          </ul>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="images/happyjuggling.png" class="demo-avatar">
+          <br>
+          <div class="demo-avatar-dropdown">
+            <span>Welcome </span>&nbsp;<span id="name"> Professor</span>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href="create.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">playlist_add</i>Add a Course</a>
+          <a class="mdl-navigation__link" href="index.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Overview</a>
+          <a class="mdl-navigation__link" href="current.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Current Courses</a>
+          <a class="mdl-navigation__link" href="old.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">history</i>Old Courses</a>
+          <a class="mdl-navigation__link" href="reminder.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">event</i>Important Reminders</a>
+          <a class="mdl-navigation__link" href="theme.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">perm_media</i>Select Theme </a>
+          <div class="mdl-layout-spacer"></div>
+          <a class="mdl-navigation__link" href="help.html"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100">
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+          <span id="fields"></span>
+          
+          <div class="mdl-card__actions">
+            <a onclick="gruntcourse()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Save Course</a>&nbsp;<a onclick="generatecourse('zip')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Create zip</a>&nbsp;<a onclick="generatecourse('folder')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Update folder</a>
+          </div>
+        </div>
+      </section>
+      </main>
+    </div>
+    <div id="overlay-text">
+      <div>You can Update the <span id="formfield-text"></span> below
+      <input class="mdl-textfield__input" type="text" id="text_input" required />
+<!--       <textarea id="modalinput" style="width:100%"></textarea>
+ -->      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('text')">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield('text')">Update</button>
+    </div>
+    
+  </div>
+      <div id="overlay-textarea">
+      <div>You can Update the <span id="formfield-textarea"></span> below
+      <textarea id="textarea-input" style="width:100%"></textarea>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('textarea')">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield('textarea')">Update</button>
+    </div>
+    
+  </div>
+  <div id="about">
+    <div>Developed with love at navya .<br><br>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggleabout()">Close</button>
+    </div>
+  </div>
+  <div id="notes_modal">
+    <div>Notes Management Screen Will Come Here<br><br>
+       <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
+                <tbody>          
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Index</td>
+                    <td class="mdl-data-table__cell--non-numeric">File Name</td>
+                    <td class="mdl-data-table__cell--non-numeric">Link</td>
+                  </tr>
+                  </tbody>
+
+
+                  </table>
+                  <input type="file" id="file_modal" multiple/>
+                  <button onclick="getfilevalue()">FUpload</button>
+                  <output id="list"></output>
+                  <br>
+                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="notes_modal()">Close</button>
+
+    </div>
+  </div>
+  <div id="sftp">
+    <div>Enter the SFTP Credentials and Options to Push the course. <br><br>
+     <input type="checkbox" id="checkbox-iitk" class="mdl-checkbox__input"  onchange="iitksettings()" />
+     <span class="mdl-checkbox__label">IITK</span>
+           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              Host Address <input class="mdl-textfield__input" type="text" id="host" required />
+                          </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+              Username <input class="mdl-textfield__input" type="text" id="username" required/>
+                                        </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              Password <input class="mdl-textfield__input" type="password" id="password" required />
+               </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              Directory to Upload <input class="mdl-textfield__input" type="text" id="directory" required />
+                                        </div>
+                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              Course Folder Name(leave empty for default) <input class="mdl-textfield__input" type="text" id="folder" required/>
+            </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="uploadsftp()">Upload</button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="sftp()">Cancel</button>
+    </div>
+  </div>
+  <a id="add-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="notes_modal()">Add Notes</a>
+  <a id="up-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="gruntcourse()">Save Course</a>
+    <a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder')">Upload Course</a>
+  <script src="js/material.min.js"></script>
+  <script src="js/routie.js"></script>
+  <script src="js/tinymce.min.js"></script>
+  <script type="text/javascript">
+  window.alertify = require('./js/alertify.min.js')
+  window.handlebars = require('./js/handlebars-v3.0.3.js')
+  window.JSZip = require('./js/jszip.min.js')
+  window.saveAs = require('./js/FileSaver.js')
+  </script>
+  <script src="js/pouchdb-4.0.0.min.js"></script>
+  <script src="js/db_func.js"></script>
+  <script src="js/all.js"></script>
+  <script src="js/single.js"></script>
+      <script src="vendor/Kalam/env_config.js"></script>
+    <script src="vendor/Kalam/context_menu.js"></script>
+    <script src="vendor/Kalam/external_links.js"></script>
+</body>
+</html>
