@@ -259,19 +259,17 @@
    var files = getelem('file_modal').files;
    var course = window.course;
    // var files = evt.target.files; // FileList object
-   var dir = path.join(__dirname,'courses', course.course_number);
+   var dir = path.join(__dirname, 'courses', course.course_number);
    // files is a FileList of File objects. List some properties.
    if (!fs.existsSync(dir)) {
      fs.mkdirSync(dir);
    }
    var dir_down = path.join(dir, 'downloads');
-   console.log(dir_down)
    if (!fs.existsSync(dir_down)) {
-    console.log(dir_down)
      fs.mkdirSync(dir_down);
    }
    var output = [];
-   for (var i = 0, f; f = files[i]; i++) {
+   async.eachSeries(files, function(f, callback) {
      var reader = new FileReader();
 
      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
@@ -282,13 +280,20 @@
        return function(e) {
 
          fs.writeFileSync(path.join(dir_down, theFile.name), e.target.result);
+         callback()
        };
      })(f);
 
      // Read in the image file as a data URL.
      reader.readAsDataURL(f);
-   }
-   document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+   }, function(err) {
+     console.log(err)
+     console.log(output)
+        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+   });
+
+   // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
  }
 
 

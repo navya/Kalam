@@ -30,7 +30,18 @@ function showcourse() {
 }
 
 function updatecoursebyid(id, course) {
+	db.get(id).then(function(doc) {
+		course._rev = doc._rev;
+		course._id = id;
+		return db.put(course);
+	}).then(function(response) {
+		alertify.success('course updated.')
+	}).catch(function(err) {
+		console.log(JSON.stringify(err));
+	});
+}
 
+function updatefilebyid(id, course) {
 	db.get(id).then(function(doc) {
 		course._rev = doc._rev;
 		course._id = id;

@@ -21,10 +21,12 @@ var paths = {
         './**/*.html',
         './css/**',
         './images/**',
+        './courses/**',
         './js/**',
         './node_modules/**',
         './stylesheets/**',
-        './themes/**'
+        './themes/**',
+        './bower/**'
     ],
 }
 

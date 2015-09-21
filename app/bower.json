@@ -1,0 +1,7 @@
+{
+  "name": "kalam",
+  "private": true,
+  "dependencies": {
+    "async": "~1.4.2"
+  }
+}
