@@ -269,17 +269,15 @@
      fs.mkdirSync(dir_down);
    }
    var output = [];
+   //write the files to output array and update the result at the end to db and update ui
    async.eachSeries(files, function(f, callback) {
      var reader = new FileReader();
-
-     output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-       f.size, ' bytes, last modified: ',
-       f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-       '</li>');
+     var tmpname = path.join(dir_down, f.name)
+     output.push([escape(f.name), f.type || 'n/a',
+       f.size, tmpname]);
      reader.onload = (function(theFile) {
        return function(e) {
-
-         fs.writeFileSync(path.join(dir_down, theFile.name), e.target.result);
+         fs.writeFileSync(tmpname, e.target.result);
          callback()
        };
      })(f);
@@ -287,13 +285,11 @@
      // Read in the image file as a data URL.
      reader.readAsDataURL(f);
    }, function(err) {
-     console.log(err)
-     console.log(output)
-        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-
+     var course = JSON.parse(localStorage.course)
+     updatefilebyid(localStorage.id, course, output)
+     // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
    });
 
-   // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
  }
 
 

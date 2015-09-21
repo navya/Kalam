@@ -210,7 +210,9 @@
                   </table>
                   <input type="file" id="file_modal" multiple/>
                   <button onclick="getfilevalue()">FUpload</button>
-                  <output id="list"></output>
+                  <output >
+                    <li id="list"></li>
+                  </output>
                   <br>
                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="notes_modal()">Close</button>
 
@@ -249,6 +251,7 @@
   <script type="text/javascript">
   window.alertify = require('./js/alertify.min.js')
   window.async = require('./bower/async/dist/async.min.js')
+  window._ = require('./bower/underscore/underscore-min.js')
   window.handlebars = require('./js/handlebars-v3.0.3.js')
   window.JSZip = require('./js/jszip.min.js')
   window.saveAs = require('./js/FileSaver.js')

@@ -41,13 +41,17 @@ function updatecoursebyid(id, course) {
 	});
 }
 
-function updatefilebyid(id, course) {
+function updatefilebyid(id, course, output) {
 	db.get(id).then(function(doc) {
 		course._rev = doc._rev;
 		course._id = id;
+		doc.cour = doc.cour || []
+		course.cour = _.uniq(_.union(doc.cour, output))
+		localStorage.setItem('course', JSON.stringify(course));
 		return db.put(course);
 	}).then(function(response) {
 		alertify.success('course updated.')
+		// updateui(course)
 	}).catch(function(err) {
 		console.log(JSON.stringify(err));
 	});
@@ -58,6 +62,6 @@ var getstr = function(course) {
 }
 
 //Dangerous
-function emptydatabase(){
+function emptydatabase() {
 	indexedDB.deleteDatabase('_pouch_courses')
 }

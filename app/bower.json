@@ -2,6 +2,7 @@
   "name": "kalam",
   "private": true,
   "dependencies": {
-    "async": "~1.4.2"
+    "async": "~1.4.2",
+    "underscore": "~1.8.3"
   }
 }
