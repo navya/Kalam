@@ -79,8 +79,16 @@
          a.splice(j--, 1);
      }
    }
-   return a;
- };
+   return a
+ }
+
+ function updateattachments(attachments) {
+   var str = '';
+   for (var i = attachments.length - 1; i >= 0; i--) {
+     str += '<div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_attach("' + i + '") > <b>' + attachments[i][0] + ':</b> </div><br><span id="attach' + i + '" >Size: ' + (attachments[i][2]) + '</span><br>'
+   };
+   getelem("attachments").innerHTML = str;
+ }
 
  function getcoursebyid(id) {
    var filename = path.join(__dirname, 'themes', 'settings.json');
@@ -97,10 +105,11 @@
      var str = '';
      for (var i = keys.length - 1; i >= 0; i--) {
        if (keys[i] !== '_rev' && keys[i] !== '_id') {
-         str += '<div class="mdl-card"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div'
+         str += '<div class="mdl-cell mdl-cell--3-col"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><br><br><span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
        }
      };
      getelem("fields").innerHTML = str;
+     updateattachments(course.cour)
    }).catch(function(err) {
      console.log(err);
    });
@@ -274,7 +283,8 @@
      var reader = new FileReader();
      var tmpname = path.join(dir_down, f.name)
      output.push([escape(f.name), f.type || 'n/a',
-       f.size, tmpname]);
+       f.size, tmpname
+     ]);
      reader.onload = (function(theFile) {
        return function(e) {
          fs.writeFileSync(tmpname, e.target.result);

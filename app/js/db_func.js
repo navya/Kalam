@@ -51,7 +51,7 @@ function updatefilebyid(id, course, output) {
 		return db.put(course);
 	}).then(function(response) {
 		alertify.success('course updated.')
-		// updateui(course)
+		updateattachments(course.cour)
 	}).catch(function(err) {
 		console.log(JSON.stringify(err));
 	});
