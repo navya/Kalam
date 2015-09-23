@@ -116,9 +116,9 @@
     var getelem = document.getElementById.bind(document);
     var createcourse = function () {
       var course = {};
-      course.course_title = getelem("course_title").value;
-      course.course_number = getelem("course_number").value;
-      course.course_session = getelem("course_session").value;
+      course.title = getelem("course_title").value;
+      course.number = getelem("course_number").value;
+      course.session = getelem("course_session").value;
       course._id = new Date().toISOString();
       add_course(course);
     }

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{{course_number}}}:{{{course_title}}}</title>
+    <title>{{{number}}}:{{{title}}}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="material.min.css">
@@ -16,7 +16,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">{{{course_number}}}: {{{course_title}}}</span>
+          <span class="mdl-layout-title">{{{number}}}: {{{title}}}</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             By- {{{instructors}}}
@@ -28,7 +28,7 @@
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">playlist_add</i>Overview</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Schedule</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Assignments</a>
-          
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Attachments</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">event</i>References</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">alarm_on</i>Grading Policy</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">contacts</i>Contact Details</a>
@@ -41,37 +41,51 @@
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>Course Objective:</h4>
-            {{{course_objective}}}
+            {{{objective}}}
           </div>
         </div>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>Course Content:</h4>
-             {{{course_content}}}
+             {{{content}}}
           </div>
         </div>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>Schedule</h4>
-            {{{course_schedule}}}
+            {{{schedule}}}
           </div>
         </div>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             <h4>References</h4>
-            {{{course_reference}}}
+            {{{references}}}
           </div>
         </div>
       </div>
       <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
         <div class="mdl-card__supporting-text">
-          {{{course_contact}}}
+          {{{contact}}}
         </div>
       </div>
       <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
         <div class="mdl-card__supporting-text">
           <h4>Grading Schema</h4>
           {{{grading_schema}}}
+        </div>
+      </div>
+      <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+        <div class="mdl-card__supporting-text">
+          <h4>Attachments</h4>
+            <ul >
+              {{#each cour}}
+                {{#each this}}
+                  
+                  <li><a href="/downloads/{{3}}">{{0}}</a></li>
+                {{/each}}
+                                
+              {{/each}}
+            </ul>
         </div>
       </div>
       

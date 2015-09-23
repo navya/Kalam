@@ -3,20 +3,21 @@
 	"index": "index.html",
 	"other": "other.html",
 	"variables": {
-		"course_title": "text",
-		"course_description": "textarea",
-		"course_session": "text",
-		"course_number": "text",
-		"course_contact": "textarea",
-		"course_objective": "textarea",
-		"course_schedule": "textarea",
-		"course_reference": "textarea",
-		"course_content": "textarea",
+		"title": "text",
+		"description": "textarea",
+		"session": "text",
+		"number": "text",
+		"contact": "textarea",
+		"objective": "textarea",
+		"schedule": "textarea",
+		"references": "textarea",
+		"content": "textarea",
 		"announcements": "textarea",
-		"notes": "textarea",
+		"notes": "attachments",
 		"grading_schema": "textarea",
 		"instructors": "text",
-		"course_objective": "textarea",
-		"Projects": "textarea"
+		"objective": "textarea",
+		"projects": "textarea",
+		"assignments": "attachments"
 	}
 }

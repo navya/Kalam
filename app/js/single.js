@@ -61,12 +61,12 @@
        return tinyMCE.activeEditor.setContent(set)
      }
    },
-   "incri_mtext": function(id, get, set) {
+   "attachments": function(id, get, set) {
      if (get) {
        return tinyMCE.activeEditor.getContent()
      }
      if (set) {
-       return inyMCE.activeEditor.setContent(window.course[id])
+       return tinyMCE.activeEditor.setContent(window.course[id])
      }
    }
  }
@@ -163,7 +163,7 @@
 
  function createfolder(course, compiledsource, files, themepath) {
    var fs = require('fs');
-   var dir = path.join(__dirname, 'courses', course.course_number);
+   var dir = path.join(__dirname, 'courses', course.number);
    if (!fs.existsSync(dir)) {
      fs.mkdirSync(dir);
    }
@@ -212,10 +212,10 @@
  function uploadsftp() {
    var client = require('scp2');
    var course = getcourse()
-   var dir = path.join(__dirname, 'courses', course.course_number);
+   var dir = path.join(__dirname, 'courses', course.number);
    var host = getelem('host').value;
    var directory = getelem('directory').value;
-   var hostpath = path.join(directory, "course", course.course_number);
+   var hostpath = path.join(directory, "course", course.number);
 
    var username = getelem('username').value;
    var password = getelem('password').value;
@@ -268,7 +268,7 @@
    var files = getelem('file_modal').files;
    var course = window.course;
    // var files = evt.target.files; // FileList object
-   var dir = path.join(__dirname, 'courses', course.course_number);
+   var dir = path.join(__dirname, 'courses', course.number);
    // files is a FileList of File objects. List some properties.
    if (!fs.existsSync(dir)) {
      fs.mkdirSync(dir);
@@ -282,9 +282,12 @@
    async.eachSeries(files, function(f, callback) {
      var reader = new FileReader();
      var tmpname = path.join(dir_down, f.name)
-     output.push([escape(f.name), f.type || 'n/a',
-       f.size, tmpname
-     ]);
+     output.push({
+       'ename': escape(f.name),
+       'type': f.type || 'n/a',
+       'size': f.size,
+       'name': f.name
+     });
      reader.onload = (function(theFile) {
        return function(e) {
          fs.writeFileSync(tmpname, e.target.result);
