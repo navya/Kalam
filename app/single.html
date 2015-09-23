@@ -151,18 +151,12 @@
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
       <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-card mdl-cell mdl-cell--10-col">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
           <div class="mdl-grid" id="fields"></div>
           
           <div class="mdl-card__actions">
             <a onclick="gruntcourse()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Save Course</a>&nbsp;<a onclick="generatecourse('zip')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Create zip</a>&nbsp;<a onclick="generatecourse('folder')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Update folder</a>
           </div>
-        </div>
-        <div class="mdl-card mdl-cell mdl-cell--2-col">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-          Attachments
-          </button>
-          <div class="mdl-grid" id="attachments"></div>
         </div>
       </section>
       </main>
@@ -175,8 +169,10 @@
     </div>
   </div>
   <div id="overlay-attachments" class="overlay-modal">
-    <div>The Existing Attachments are <br> <span id="formfield-attachments"></span>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('textarea')">Close</button>
+    <div>The Existing Attachments are  <span id="formfield-attachments"></span><br>
+    <input type="file" id="file_modal" multiple/>
+    <button onclick="Upload_attachments()">Upload</button><br>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('attachments')">Close</button>
   </div>
 </div>
 <div id="overlay-textarea"  class="overlay-modal">

@@ -28,9 +28,12 @@
    type = tmp[1]
    id = tmp[0]
    overlay(type)
-   getelem('formfield-' + type).innerHTML = id
+   getelem('formfield-' + type).dataset.value = id
    existing_value = (window.course[id] || "");
-   template[type](id, null, existing_value)
+   template[type](id, null, existing_value);
+   if (type == 'attachments') {
+     getelem("formfield-attachments").innerHTML = "";
+   }
  }
 
  function overlay(type) {
@@ -82,34 +85,51 @@
    return a
  }
 
- function updateattachments(attachments) {
+ function updateattachments(attachments, id) {
    var str = '';
    for (var i = attachments.length - 1; i >= 0; i--) {
-     str += '<div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_attach("' + i + '") > <b>' + attachments[i][0] + ':</b> </div><br><span id="attach' + i + '" >Size: ' + (attachments[i][2]) + '</span><br>'
+     str += '<div class="item_heading" onclick=modify_attach("' + i + '") > <b>' + attachments[i][name] + ':</b> </div><br><span id="attach' + i + '" >Size: ' + (attachments[i][size]) + '</span><br>'
    };
-   getelem("attachments").innerHTML = str;
+   getelem(id).innerHTML = str;
  }
 
- function getcoursebyid(id) {
+ function updateattachments(course) {
    var filename = path.join(__dirname, 'themes', 'settings.json');
    var jsonm = require(filename);
    var themename = jsonm.ActiveTheme;
    var themepath = path.join(__dirname, 'themes', themename, 'settings.json');
    var themefields = require(themepath).variables;
-   db.get(id).then(function(course) {
-     localStorage.setItem('course', JSON.stringify(course));
-     localStorage.setItem('id', course._id);
-     window.course = course;
-     var keys = Object.keys(themefields);
-     window.keys = keys
-     var str = '';
-     for (var i = keys.length - 1; i >= 0; i--) {
-       if (keys[i] !== '_rev' && keys[i] !== '_id') {
+   localStorage.setItem('course', JSON.stringify(course));
+   localStorage.setItem('id', course._id);
+   window.course = course;
+   var keys = Object.keys(themefields);
+   window.keys = keys
+   var str = '';
+   var tmp = '';
+   var tmpcourse = '';
+   for (var i = keys.length - 1; i >= 0; i--) {
+     if (keys[i] !== '_rev' && keys[i] !== '_id') {
+       if (themefields[keys[i]] == 'attachments') {
+         tmp = '';
+         tmpcourse = course[keys[i]] || [];
+         for (var k = tmpcourse.length - 1; k >= 0; k--) {
+           tmp += '<div class="item_heading"> <b>' + tmpcourse[k]["name"] + ':</b> <span id="attach' + k + '" > ' + (tmpcourse[k]["size"]) + ' KB</span></div><br>'
+         };
+         str += '<div class="mdl-cell mdl-cell--3-col"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><br><br><span id="' + keys[i] + '" >' + (tmp || "") + '</span></div>'
+       } else {
          str += '<div class="mdl-cell mdl-cell--3-col"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><br><br><span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
        }
-     };
-     getelem("fields").innerHTML = str;
-     updateattachments(course.cour)
+     }
+   }
+   tmp = ''
+   getelem("fields").innerHTML = str;
+   updateattachments(course.cour)
+ }
+
+ function getcoursebyid(id) {
+
+   db.get(id).then(function(course) {
+     updateattachments(course);
    }).catch(function(err) {
      console.log(err);
    });
@@ -264,8 +284,9 @@
    }
  }
 
- function getfilevalue() {
+ function Upload_attachments() {
    var files = getelem('file_modal').files;
+   var attachment_id = getelem('formfield-attachments').dataset.value;
    var course = window.course;
    // var files = evt.target.files; // FileList object
    var dir = path.join(__dirname, 'courses', course.number);
@@ -299,7 +320,7 @@
      reader.readAsDataURL(f);
    }, function(err) {
      var course = JSON.parse(localStorage.course)
-     updatefilebyid(localStorage.id, course, output)
+     updatefilebyid(localStorage.id, course, output, attachment_id)
      // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
    });
 

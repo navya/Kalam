@@ -41,17 +41,17 @@ function updatecoursebyid(id, course) {
 	});
 }
 
-function updatefilebyid(id, course, output) {
+function updatefilebyid(id, course, output, elemid) {
 	db.get(id).then(function(doc) {
 		course._rev = doc._rev;
 		course._id = id;
-		doc.cour = doc.cour || []
-		course.cour = _.uniq(_.union(doc.cour, output))
+		doc[elemid] = doc[elemid]|| []
+		course[elemid]= _.uniq(_.union(doc[elemid], output))
 		localStorage.setItem('course', JSON.stringify(course));
 		return db.put(course);
 	}).then(function(response) {
 		alertify.success('course updated.')
-		updateattachments(course.cour)
+		updateattachments(course[elemid], elemid)
 	}).catch(function(err) {
 		console.log(JSON.stringify(err));
 	});
