@@ -85,15 +85,13 @@
    return a
  }
 
- function updateattachments(attachments, id) {
-   var str = '';
-   for (var i = attachments.length - 1; i >= 0; i--) {
-     str += '<div class="item_heading" onclick=modify_attach("' + i + '") > <b>' + attachments[i][name] + ':</b> </div><br><span id="attach' + i + '" >Size: ' + (attachments[i][size]) + '</span><br>'
-   };
-   getelem(id).innerHTML = str;
+ function updateattachments() {
+   //Updates the UI currently only refreshes :P
+   getcoursebyid(window.location.hash.slice(8))
+   verlay('attachments')
  }
 
- function updateattachments(course) {
+ function bootstrapattachments(course) {
    var filename = path.join(__dirname, 'themes', 'settings.json');
    var jsonm = require(filename);
    var themename = jsonm.ActiveTheme;
@@ -129,7 +127,7 @@
  function getcoursebyid(id) {
 
    db.get(id).then(function(course) {
-     updateattachments(course);
+     bootstrapattachments(course);
    }).catch(function(err) {
      console.log(err);
    });
