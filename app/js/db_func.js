@@ -29,6 +29,22 @@ function showcourse() {
 	});
 }
 
+function update_single_field(type, value) {
+	var course = window.course;
+	db.get(course._id).then(function(doc) {
+		course._rev = doc._rev;
+		course._id = id;
+		course[type] = value
+		window.course = course
+		return db.put(course);
+	}).then(function(response) {
+		alertify.success('course updated.')
+		update_ui()
+	}).catch(function(err) {
+		console.log(JSON.stringify(err));
+	});
+}
+
 function updatecoursebyid(id, course) {
 	db.get(id).then(function(doc) {
 		course._rev = doc._rev;
@@ -45,14 +61,14 @@ function updatefilebyid(id, course, output, elemid) {
 	db.get(id).then(function(doc) {
 		course._rev = doc._rev;
 		course._id = id;
-		doc[elemid] = doc[elemid]|| []
-		course[elemid]= _.uniq(_.union(doc[elemid], output))
+		doc[elemid] = doc[elemid] || []
+		course[elemid] = _.uniq(_.union(doc[elemid], output))
 		localStorage.setItem('course', JSON.stringify(course));
 		window.course = course;
 		return db.put(course);
 	}).then(function(response) {
 		alertify.success('course updated.')
-		updateattachments(course[elemid], elemid)
+		update_ui()
 	}).catch(function(err) {
 		console.log(JSON.stringify(err));
 	});

@@ -8,7 +8,8 @@
 
    function updatefield(type) {
      var id = getelem('formfield-' + type).dataset.value;
-     getelem(id).innerHTML = template[type](id, 'get')
+     var value = template[type](id, 'get')
+     update_single_field( id, value)
      overlay(type)
    }
 
@@ -61,7 +62,7 @@
      return a
    }
 
-   function updateattachments() {
+   function update_ui() {
      //Updates the UI currently only refreshes :P
      getcoursebyid(window.location.hash.slice(8))
      //overlay('attachments')
@@ -97,7 +98,7 @@
      }
      tmp = ''
      getelem("fields").innerHTML = str;
-     updateattachments(course.cour)
+    update_ui()
    }
 
    function getcoursebyid(id) {

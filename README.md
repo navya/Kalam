@@ -34,7 +34,7 @@ A cross Platform Desktop Client which lets Busy Professors create a course WebPa
  Download the release from [here](https://github.com/navya/Kalam/releases).
 
 ##Dev Build Process
-	Just Read [DEV-README](https://github.com/navya/Kalam/blob/master/DEV-README.md)
+ Just Read [DEV-README](https://github.com/navya/Kalam/blob/master/DEV-README.md)
 
 
 ##Contributions : 
