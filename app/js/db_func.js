@@ -33,7 +33,6 @@ function update_single_field(type, value) {
 	var course = window.course;
 	db.get(course._id).then(function(doc) {
 		course._rev = doc._rev;
-		course._id = id;
 		course[type] = value
 		window.course = course
 		return db.put(course);

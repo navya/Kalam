@@ -46,7 +46,7 @@
          return getelem('textarea-input').value
        }
        if (set) {
-         return getelem('textarea_input').value
+         return editor.setContent(set || 'Click here to edit', 0)
        }
      }
    }
