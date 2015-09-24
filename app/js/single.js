@@ -38,7 +38,7 @@
          return getelem('text_input').value
        }
        if (set) {
-         return getelem('text_input').value = set
+         return getelem('text_input').value = set || 'Click here to edit'
        }
      },
      "textarea": function(id, get, set) {
