@@ -11,8 +11,19 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/alertify.min.css">
     <link rel="stylesheet" href="css/alertify.rtl.min.css">
-    <link rel="stylesheet" href="bower/pen/src/pen.css">
+    <link rel="stylesheet" href="bower/medium-editor/dist/css/medium-editor.css">
+    <link rel="stylesheet" href="bower/medium-editor/dist/css/themes/flat.css">
     <style>
+    #toolbar{margin-bottom:1em;position:fixed;left:20px;margin-top:5px;}
+    #toolbar [class^="icon-"]:before, #toolbar [class*=" icon-"]:before{font-family:'pen'}
+    #mode{color:#1abf89;;cursor:pointer;}
+    #mode.disabled{color:#666;}
+    #mode:before{content: '\e813';}
+    #hinted{color:#1abf89;cursor:pointer;}
+    #hinted.disabled{color:#666;}
+    #hinted:before{content: '\e816';}
+    #tomd{color:#fff;border-radius:2px;line-height:1;padding:1px 3px 0; font-size:0.8em;background:#000;cursor:pointer;}
+    #fork{position:fixed;right:0;top:0;}
     .item_heading {
     width: 100%;
     }
@@ -176,7 +187,7 @@
 </div>
 <div id="overlay-textarea"  class="overlay-modal">
   <div>You can Update the <span id="formfield-textarea"></span> below
-  <textarea id="textarea-input" style="width:100%"></textarea>
+  <textarea id="textarea-input" data-toggle="pen" style="width:100%"></textarea>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('textarea')">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield('textarea')">Update</button>
 </div>
 </div>
@@ -212,9 +223,8 @@
 <a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder')">Upload Course</a>
 <script src="js/material.min.js"></script>
 <script src="js/routie.js"></script>
-<script src="bower/pen/src/pen.js"></script>
-<script src="bower/pen/src/markdown.js"></script>
 <script type="text/javascript">
+window.MediumEditor = require('./bower/medium-editor/dist/js/medium-editor.js')
 window.alertify = require('./js/alertify.min.js')
 window.async = require('./bower/async/dist/async.min.js')
 window._ = require('./bower/underscore/underscore-min.js')
