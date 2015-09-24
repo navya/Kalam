@@ -76,12 +76,12 @@
       </div>
       <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
         <div class="mdl-card__supporting-text">
-          <h4>Attachments</h4>
+          <h4>Assignments</h4>
             <ul >
-              {{#each cour}}
+              {{#each assignments}}
                 {{#each this}}
                   
-                  <li><a href="/downloads/{{3}}">{{0}}</a></li>
+                  <li><a href="/downloads/{{ename}}">{{name}}</a></li>
                 {{/each}}
                                 
               {{/each}}

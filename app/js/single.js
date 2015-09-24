@@ -42,11 +42,6 @@
    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
  }
 
- function notes_modal() {
-   el = document.getElementById("notes_modal");
-   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
- }
-
  var template = {
    "text": function(id, get, set) {
      if (get) {
@@ -88,7 +83,7 @@
  function updateattachments() {
    //Updates the UI currently only refreshes :P
    getcoursebyid(window.location.hash.slice(8))
-   verlay('attachments')
+   //overlay('attachments')
  }
 
  function bootstrapattachments(course) {
