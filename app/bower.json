@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "async": "~1.4.2",
+    "pen": "~0.2.2",
     "underscore": "~1.8.3"
   }
 }

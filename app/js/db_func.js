@@ -48,6 +48,7 @@ function updatefilebyid(id, course, output, elemid) {
 		doc[elemid] = doc[elemid]|| []
 		course[elemid]= _.uniq(_.union(doc[elemid], output))
 		localStorage.setItem('course', JSON.stringify(course));
+		window.course = course;
 		return db.put(course);
 	}).then(function(response) {
 		alertify.success('course updated.')

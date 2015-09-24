@@ -1,12 +1,4 @@
- tinymce.init({
-   selector: "textarea",
-   plugins: [
-     "advlist autolink lists link image charmap print preview anchor",
-     "searchreplace visualblocks code fullscreen",
-     "insertdatetime media table contextmenu paste"
-   ],
-   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
- });
+ var pen_editor = new Pen(document.getElementById('textarea-input'));
 
  var getelem = document.getElementById.bind(document),
    fs = require('fs'),
@@ -15,12 +7,9 @@
  window.keys = {};
 
  function updatefield(type) {
-   var type1 = 'formfield-' + type;
-   var id = getelem(type1).innerHTML;
-   // getelem(id).innerHTML = tinyMCE.activeEditor.getContent();
+   var id = getelem('formfield-' + type).dataset.value;
    getelem(id).innerHTML = template[type](id, 'get')
    overlay(type)
-
  }
 
  function modify_field(str) {
@@ -53,19 +42,10 @@
    },
    "textarea": function(id, get, set) {
      if (get) {
-       return tinyMCE.activeEditor.getContent()
+       return getelem('textarea-input').value
      }
      if (set) {
-       return tinyMCE.activeEditor.setContent(set)
-     }
-   },
-   "attachments": function(id, get, set) {
-     if (get) {
-       return tinyMCE.activeEditor.getContent()
-     }
-     if (set) {
-       return tinyMCE.activeEditor.setContent(window.course[id])
-     }
+       return getelem('textarea_input').value
    }
  }
 
@@ -120,7 +100,6 @@
  }
 
  function getcoursebyid(id) {
-
    db.get(id).then(function(course) {
      bootstrapattachments(course);
    }).catch(function(err) {
@@ -132,13 +111,7 @@
 
 
  function getcourse() {
-   var keys = window.keys;
-   var obj = {}
-   for (var i = keys.length - 1; i >= 0; i--) {
-     if (keys[i] !== '_rev' && keys[i] !== '_id') {
-       obj[keys[i]] = getelem(keys[i]).innerHTML
-     }
-   };
+   var obj = window.course;
    return obj
  }
 
