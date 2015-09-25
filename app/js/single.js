@@ -1,12 +1,11 @@
-
 var editor = new MediumEditor('[data-toggle="pen"]');
 
 
 var getelem = document.getElementById.bind(document),
-    fs = require('fs'),
-    path = require('path');
-    window.course = {};
-    window.keys = {};
+  fs = require('fs'),
+  path = require('path');
+window.course = {};
+window.keys = {};
 
 function updatefield(type) {
   var id = getelem('formfield-' + type).dataset.value;
@@ -144,6 +143,13 @@ function generatezip(course, compiledsource, files, themepath) {
       zip.file(files[i], tfile);
     }
   }
+  var down_folder = zip.folder("downloads");
+  var downpath = path.join(localStorage.appData,course.number,'downloads')
+  var down_files  = getFiles(downpath);
+    for (var i = down_files.length - 1; i >= 0; i--) {
+      tfile = fs.readFileSync(path.join(downpath, down_files[i]), "utf8");
+      down_folder.file(down_files[i], tfile);
+  }
   var content = zip.generate({
     type: "blob"
   });
@@ -228,8 +234,6 @@ function uploadsftp() {
     checker = 0
   }
   if (checker) {
-    console.log(url)
-    console.log(dir)
     client.scp(dir, url, function(err) {
       if (!err) {
         alertify.success('Upload has been successful');

@@ -1,6 +1,4 @@
-// Here is the starting point for code of your own application.
-// All stuff below is just to show you how it works. You can delete all of it.
-
+// Here is the starting point for code of the application.
 // Modules which you authored in this project are intended to be
 // imported through new ES6 syntax.
 // import { greet } from './tests/demo';
@@ -13,7 +11,6 @@ var jetpack = require('fs-jetpack');
 // Holy crap! This is browser window with HTML and stuff, but I can read
 // here files like it is node.js! Welcome to Electron world :)
 var manifest = jetpack.read('package.json', 'json');
-console.log(manifest);
 
 // window.env contains data from config/env_XXX.json file.
 var envName = window.env.name;
