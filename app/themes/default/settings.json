@@ -16,7 +16,6 @@
 		"notes": "attachments",
 		"grading_schema": "textarea",
 		"instructors": "text",
-		"objective": "textarea",
 		"projects": "textarea",
 		"assignments": "attachments"
 	}
