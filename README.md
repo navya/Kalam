@@ -18,9 +18,9 @@ A cross Platform Desktop Client which lets Busy Professors create a course WebPa
 
 	SFTP Push
 
-### Pending features
-	
 	Add Media Uploads
+
+### Pending features
 	
 	Push to Github Pages
 
@@ -31,17 +31,18 @@ A cross Platform Desktop Client which lets Busy Professors create a course WebPa
 ##Project in Alpha - Target Testing Phase (2016 -)
 
 ##To run -
- Download the release from [here](https://github.com/navya/Kalam/releases).
+ Download a Installer from [here](https://github.com/navya/Kalam/releases). 
+ I do not own a mac so currently there are not Mac Builds available. Would appreciate if anyone can 
+ help in that regard.
 
 ##Dev Build Process
  Just Read [DEV-README](https://github.com/navya/Kalam/blob/master/DEV-README.md)
 
 
 ##Contributions : 
-Please test and open a issue. Before Working on anything major, please check if its already being worked upon.
+Contributions are welcomed.
+Just open a issue. Before Working on anything major, please check if its already being worked upon.
 
 ###Project By - Bhanu Pratap Chaudhary
 
 ###Powered By - Electron
-
-Colors - Red #fd0000 http://www.norio.be/android-feature-graphic-generator/
