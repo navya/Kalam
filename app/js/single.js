@@ -1,5 +1,5 @@
    var editor = new MediumEditor('[data-toggle="pen"]');
-
+   var appData = app.getPath("appData");
    var getelem = document.getElementById.bind(document),
      fs = require('fs'),
      path = require('path');
@@ -109,7 +109,7 @@
      });
    }
     //This function sets up the page, adding inputs elements of the template
-    //TODO - Add input fields for course fields not in template but in course ( probably an interface to choose any type)
+    //TODO - Add input fields for course fields not in template but in course ( probably an interface t o choose any type)
 
 
    function getcourse() {
@@ -151,7 +151,7 @@
 
    function createfolder(course, compiledsource, files, themepath) {
      var fs = require('fs');
-     var dir = path.join(__dirname, 'courses', course.number);
+     var dir = path.join(appData, 'courses', course.number);
      if (!fs.existsSync(dir)) {
        fs.mkdirSync(dir);
      }
@@ -200,7 +200,7 @@
    function uploadsftp() {
      var client = require('scp2');
      var course = getcourse()
-     var dir = path.join(__dirname, 'courses', course.number);
+     var dir = path.join(appData, 'courses', course.number);
      var host = getelem('host').value;
      var directory = getelem('directory').value;
      var hostpath = path.join(directory, "course", course.number);
@@ -257,7 +257,7 @@
      var attachment_id = getelem('formfield-attachments').dataset.value;
      var course = window.course;
      // var files = evt.target.files; // FileList object
-     var dir = path.join(__dirname, 'courses', course.number);
+     var dir = path.join(appData, 'courses', course.number);
      // files is a FileList of File objects. List some properties.
      if (!fs.existsSync(dir)) {
        fs.mkdirSync(dir);

@@ -78,13 +78,9 @@
         <div class="mdl-card__supporting-text">
           <h4>Assignments</h4>
             <ul >
-              {{#each assignments}}
-                {{#each this}}
-                  
-                  <li><a href="/downloads/{{ename}}">{{name}}</a></li>
-                {{/each}}
-                                
-              {{/each}}
+              {{#assignments}}                 
+                  <li><a href="/downloads/{{ename}}">{{'name'}}</a></li>                              
+              {{/assignments}}
             </ul>
         </div>
       </div>
