@@ -4,7 +4,6 @@ var appData = app.getPath("appData");
 var path = require('path');
 var fs = require('fs');
 
-
 function toggleabout() {
 	el = document.getElementById("about");
 	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
@@ -19,4 +18,5 @@ function bootstrapFolder() {
 	if (!fs.existsSync(dir2)) {
 		fs.mkdirSync(dir2);
 	}
+  localStorage.setItem('appData', dir2);
 }

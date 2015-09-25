@@ -100,7 +100,6 @@ function bootstrapattachments(course) {
   }
   tmp = ''
   getelem("fields").innerHTML = str;
-  update_ui()
 }
 
 function getcoursebyid(id) {
@@ -153,7 +152,7 @@ function generatezip(course, compiledsource, files, themepath) {
 
 function createfolder(course, compiledsource, files, themepath) {
   var fs = require('fs');
-  var dir = path.join(appData, 'courses', course.number);
+  var dir = path.join(localStorage.appData, course.number);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
@@ -202,7 +201,7 @@ function generatecourse(method) {
 function uploadsftp() {
   var client = require('scp2');
   var course = getcourse()
-  var dir = path.join(appData, 'courses', course.number);
+  var dir = path.join(localStorage.appData, course.number);
   var host = getelem('host').value;
   var directory = getelem('directory').value;
   var hostpath = path.join(directory, "course", course.number);
@@ -259,7 +258,7 @@ function Upload_attachments() {
   var attachment_id = getelem('formfield-attachments').dataset.value;
   var course = window.course;
   // var files = evt.target.files; // FileList object
-  var dir = path.join(appData, 'courses', course.number);
+  var dir = path.join(localStorage.appData, course.number);
   // files is a FileList of File objects. List some properties.
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -296,7 +295,4 @@ function Upload_attachments() {
 
 }
 
-
-routie('course/:id', function(id) {
-  getcoursebyid(id);
-});
+update_ui()
