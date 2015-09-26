@@ -33,7 +33,7 @@ A cross Platform Desktop Client which lets Busy Professors create a course WebPa
 ##To run -
  Download a Installer from [here](https://github.com/navya/Kalam/releases). 
  I do not own a mac so currently there are not Mac Builds available. Would appreciate if anyone can 
- help in that regard.
+ volunteer in creating Mac Installers. Its a simple 2 step process.
 
 ##Dev Build Process
  Just Read [DEV-README](https://github.com/navya/Kalam/blob/master/DEV-README.md)

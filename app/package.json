@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "fs-jetpack": "^0.7.0",
+    "octonode": "^0.7.1",
     "scp2": "^0.2.2"
   }
 }
