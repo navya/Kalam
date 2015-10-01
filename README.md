@@ -1,24 +1,20 @@
-#You have to dream before your dreams can come true. 
+##You have to dream before your dreams can come true. 
   -APJ Abdul Kalam
 
 ##Course WebPage Assistant for College Professors
 
-A cross Platform Desktop Client which lets Busy Professors create a course WebPage and regularly update it.
+A cross Platform Desktop Client which automates the creation and maintainence WebPage and regularly update it.
 
 
 ### Already implemented features
 	
-	Download zip
+	Zip Download
 
-	Course Theme System
-
-	Material Theme
-
-	Folder Generation
+	Theme Support
 
 	SFTP Push
 
-	Add Media Uploads
+	Add Assignments/Notes Uploads Support
 
 ### Pending features
 	
@@ -41,6 +37,7 @@ A cross Platform Desktop Client which lets Busy Professors create a course WebPa
 
 ##Contributions : 
 Contributions are welcomed.
+I accept pull requests and guaranteed reply back within a day.
 Just open a issue. Before Working on anything major, please check if its already being worked upon.
 
 ###Project By - Bhanu Pratap Chaudhary

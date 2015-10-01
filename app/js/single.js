@@ -1,4 +1,5 @@
 var editor = new MediumEditor('[data-toggle="pen"]');
+var github = require('octonode');
 
 
 var getelem = document.getElementById.bind(document),
@@ -156,7 +157,7 @@ function generatezip(course, compiledsource, files, themepath) {
   saveAs(content, "course.zip");
 }
 
-function createfolder(course, compiledsource, files, themepath) {
+function createfolder(course, compiledsource, files, themepath, method) {
   var fs = require('fs');
   var dir = path.join(localStorage.appData, course.number);
   if (!fs.existsSync(dir)) {
@@ -179,10 +180,12 @@ function createfolder(course, compiledsource, files, themepath) {
   }
   alertify.success("Folder has Been Created")
   // uploadsftp()
-  sftp()
+  toggle_modal(method)
 }
 
-function generatecourse(method) {
+
+
+function generatecourse(method, source_type) {
   var course = getcourse()
   var compiledsource = {};
   var filename = path.join(__dirname, 'themes', 'settings.json');
@@ -200,8 +203,61 @@ function generatecourse(method) {
   if (method == 'zip') {
     generatezip(course, compiledsource, files, themepath)
   } else {
-    createfolder(course, compiledsource, files, themepath)
+    createfolder(course, compiledsource, files, themepath, source_type)
   }
+}
+
+function uploadgit() {
+  var course = getcourse()
+  var dir = path.join(localStorage.appData, course.number);
+  var host = getelem('host').value;
+  var reponame = getelem('grepo').value;
+  var username = getelem('gusername').value;
+  var password = getelem('gpassword').value;
+  var client = github.client({
+    username: username,
+    password: password
+  });
+  var ghrepo = client.repo(reponame);
+
+  client.get('/user', {}, function(err, status, body, headers) {
+    console.log('stage1')
+    if (err) {
+      console.log(err)
+      alertify.error("Incorrect Credentials or check Connection")
+    } else {
+      console.log('stage2')
+      ghrepo.collaborators(username, function(err2, result) {
+        console.log(err2)
+        console.log('stage3')
+        if (err) {
+          alertify.error("You Need to have push Access to the Repository.Please check the Repository Format")
+        } else {
+          ghrepo.ref('head', function(err3, res) {
+            if (err) {
+              alertify.error("Reference not found")
+            } else {
+              sha = res[0]['object']['sha']
+              ghrepo.create_reference('gh-pages4',sha,function(err,res){
+                console.log(err,res)
+              })
+            }
+          });
+          // ghrepo.contents('', "gh-pages", function(err, result) {
+          //   // if (err) { //Need to create the gh-pages branch
+          //"c973eb2190ad08c4c3ed1e720814d6bb54f5a9a7"
+          // {ref: "refs/heads/gh-pages2", sha: "c973eb2190ad08c4c3ed1e720814d6bb54f5a9a7"}
+          //{ref: "refs/heads/gh-pages2", sha: "c973eb2190ad08c4c3ed1e720814d6bb54f5a9a7"}
+
+
+          //   // } else {
+
+          //   // }
+          // });
+        }
+      });
+    }
+  });
 }
 
 function uploadsftp() {
@@ -237,15 +293,15 @@ function uploadsftp() {
     client.scp(dir, url, function(err) {
       if (!err) {
         alertify.success('Upload has been successful');
-        sftp();
+        toggle_modal('sftp');
       }
     })
   }
 
 }
 
-function sftp() {
-  el = document.getElementById("sftp");
+function toggle_modal(id) {
+  el = document.getElementById(id);
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 }
 
@@ -284,7 +340,9 @@ function Upload_attachments() {
     });
     reader.onload = (function(theFile) {
       return function(e) {
-        fs.writeFileSync(tmpname, e.target.result);
+        var data_url = e.target.result.split('base64,')[1]
+        var buffer = new Buffer(data_url, 'base64');
+        fs.writeFileSync(tmpname,  buffer);
         callback()
       };
     })(f);

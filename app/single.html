@@ -14,33 +14,20 @@
     <link rel="stylesheet" href="bower/medium-editor/dist/css/medium-editor.css">
     <link rel="stylesheet" href="bower/medium-editor/dist/css/themes/flat.css">
     <style>
-    #toolbar{margin-bottom:1em;position:fixed;left:20px;margin-top:5px;}
-    #toolbar [class^="icon-"]:before, #toolbar [class*=" icon-"]:before{font-family:'pen'}
-    #mode{color:#1abf89;;cursor:pointer;}
-    #mode.disabled{color:#666;}
-    #mode:before{content: '\e813';}
-    #hinted{color:#1abf89;cursor:pointer;}
-    #hinted.disabled{color:#666;}
-    #hinted:before{content: '\e816';}
-    #tomd{color:#fff;border-radius:2px;line-height:1;padding:1px 3px 0; font-size:0.8em;background:#000;cursor:pointer;}
-    #fork{position:fixed;right:0;top:0;}
-    .item_heading {
-    width: 100%;
-    }
-    #add-notes {
-    position: fixed;
-    display: block;
-    right: 0;
-    bottom: 80px;
-    margin-right: 40px;
-    margin-bottom: 40px;
-    z-index: 900;
-    }
     #upload-sftp {
     position: fixed;
     display: block;
     right: 0;
     bottom: 40px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    z-index: 900;
+    }
+    #upload-git {
+    position: fixed;
+    display: block;
+    right: 0;
+    bottom: 80px;
     margin-right: 40px;
     margin-bottom: 40px;
     z-index: 900;
@@ -54,54 +41,7 @@
     margin-bottom: 40px;
     z-index: 900;
     }
-    #sftp {
-    visibility: hidden;
-    position: absolute;
-    left: 35%;
-    top: 0px;
-    width:100%;
-    height:70%;
-    text-align:center;
-    z-index: 1000;
-    width:300px;
-    margin: 100px auto;
-    background-color: #fff;
-    border:1px solid #000;
-    padding:15px;
-    text-align:center;
-    }
-    #notes_modal{
-    visibility: hidden;
-    position: absolute;
-    left: 35%;
-    top: 0px;
-    width:100%;
-    height:70%;
-    text-align:center;
-    z-index: 1000;
-    width:300px;
-    margin: 100px auto;
-    background-color: #fff;
-    border:1px solid #000;
-    padding:15px;
-    text-align:center;
-    }
-    #about {
-    visibility: hidden;
-    position: absolute;
-    left: 35%;
-    top: 0px;
-    width:100%;
-    height:20%;
-    text-align:center;
-    z-index: 1000;
-    width:300px;
-    margin: 100px auto;
-    background-color: #fff;
-    border:1px solid #000;
-    padding:15px;
-    text-align:center;
-    }
+    
     .overlay-modal {
     visibility: hidden;
     position: absolute;
@@ -191,16 +131,16 @@
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('textarea')">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield('textarea')">Update</button>
 </div>
 </div>
-<div id="about">
+<div id="about" class="overlay-modal">
 <div>Developed with love at navya .<br><br>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggleabout()">Close</button>
 </div>
 </div>
-<div id="sftp">
+<div id="sftp" class="overlay-modal" >
 <div>Enter the SFTP Credentials and Options to Push the course. <br><br>
   <input type="checkbox" id="checkbox-iitk" class="mdl-checkbox__input"  onchange="iitksettings()" />
   <span class="mdl-checkbox__label">IITK</span>
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <div class="mdl-textfield mdl-js-textfield mdl- textfield--floating-label">
     Host Address <input class="mdl-textfield__input" type="text" id="host" required />
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -216,11 +156,28 @@
     Course Folder Name(leave empty for default) <input class="mdl-textfield__input" type="text" id="folder" required/>
   </div>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="uploadsftp()">Upload</button>
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="sftp()">Cancel</button>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggle_modal('sftp')">Cancel</button>
+</div>
+</div>
+<div id="git" class="overlay-modal" >
+<div>Enter the your Github Credentials and Repo Name <br><br>
+  <div class="mdl-textfield mdl-js-textfield mdl- textfield--floating-label">
+    Username<input class="mdl-textfield__input" type="text" id="gusername" required />
+  </div>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    Password <input class="mdl-textfield__input" type="password" id="gpassword" required />
+  </div>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    Repo<input class="mdl-textfield__input" type="text" id="grepo" required />
+    <label class="mdl-textfield__label" for="grepo">Ex: navya/kalam</label>
+  </div>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="uploadgit()">Upload</button>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggle_modal('git')">Cancel</button>
 </div>
 </div>
 <a id="up-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="gruntcourse()">Save Course</a>
-<a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder')">Upload Course</a>
+<a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','sftp')">Upload Course</a>
+<a id="upload-git" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','git')">Push on Github</a>
 <script src="js/material.min.js"></script>
 <script type="text/javascript">
 window.MediumEditor = require('./bower/medium-editor/dist/js/medium-editor.js')

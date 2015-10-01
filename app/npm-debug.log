@@ -1,0 +1,109 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'git@github.com:bhanuc/octonode.git',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.40
+4 verbose node symlink /usr/bin/node
+5 warn package.json kalam@0.0.4 No repository field.
+6 warn package.json kalam@0.0.4 No README data
+7 verbose readDependencies using package.json deps
+8 verbose cache add [ 'git@github.com:bhanuc/octonode.git', null ]
+9 verbose cache add name=undefined spec="git@github.com:bhanuc/octonode.git" args=["git@github.com:bhanuc/octonode.git",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'git@github.com:bhanuc/octonode.git',
+10 verbose parsed url   path: 'git@github.com:bhanuc/octonode.git',
+10 verbose parsed url   href: 'git@github.com:bhanuc/octonode.git' }
+11 verbose cache add name="git" spec="github.com:bhanuc/octonode.git" args=["git","github.com:bhanuc/octonode.git"]
+12 verbose parsed url { protocol: 'github.com:',
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: 'bhanuc',
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: 'bhanuc',
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: '/octonode.git',
+12 verbose parsed url   path: '/octonode.git',
+12 verbose parsed url   href: 'github.com:bhanuc/octonode.git' }
+13 verbose addNamed [ 'git', 'github.com:bhanuc/octonode.git' ]
+14 verbose addNamed [ null, null ]
+15 silly lockFile 64d205c4-t-github-com-bhanuc-octonode-git git@github.com:bhanuc/octonode.git
+16 verbose lock git@github.com:bhanuc/octonode.git /home/bhanuc/.npm/64d205c4-t-github-com-bhanuc-octonode-git.lock
+17 info addNameTag [ 'git', 'github.com:bhanuc/octonode.git' ]
+18 verbose request where is /git
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id d970aee0bc40f50d
+21 verbose url raw /git
+22 verbose url resolving [ 'https://registry.npmjs.org/', './git' ]
+23 verbose url resolved https://registry.npmjs.org/git
+24 verbose request where is https://registry.npmjs.org/git
+25 info trying registry request attempt 1 at 03:37:33
+26 http GET https://registry.npmjs.org/git
+27 http 200 https://registry.npmjs.org/git
+28 silly registry.get cb [ 200,
+28 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 silly registry.get     etag: '"4Y9YM9XRKE9H24FVGGAC05I35"',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=60',
+28 silly registry.get     'content-length': '10051',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     date: 'Sat, 26 Sep 2015 22:07:36 GMT',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '0',
+28 silly registry.get     connection: 'keep-alive',
+28 silly registry.get     'x-served-by': 'cache-sin6926-SIN',
+28 silly registry.get     'x-cache': 'MISS',
+28 silly registry.get     'x-cache-hits': '0',
+28 silly registry.get     'x-timer': 'S1443305255.623989,VS0,VE978',
+28 silly registry.get     vary: 'Accept' } ]
+29 info maybeGithub Attempting github.com:bhanuc/octonode.git from git://github.com/github.com:bhanuc/octonode.git
+30 silly lockFile f98e5d8d-m-github-com-bhanuc-octonode-git git://github.com/github.com:bhanuc/octonode.git
+31 verbose lock git://github.com/github.com:bhanuc/octonode.git /home/bhanuc/.npm/f98e5d8d-m-github-com-bhanuc-octonode-git.lock
+32 verbose addRemoteGit [ 'git://github.com/github.com:bhanuc/octonode.git', 'master' ]
+33 verbose git clone git://github.com/github.com:bhanuc/octonode.git Cloning into bare repository '/home/bhanuc/.npm/_git-remotes/git-github-com-github-com-bhanuc-octonode-git-f98e5d8d'...
+33 verbose git clone git://github.com/github.com:bhanuc/octonode.git fatal: remote error:
+33 verbose git clone git://github.com/github.com:bhanuc/octonode.git   github.com:bhanuc/octonode is not a valid repository name
+33 verbose git clone git://github.com/github.com:bhanuc/octonode.git   Email support@github.com for help
+34 silly lockFile f98e5d8d-m-github-com-bhanuc-octonode-git git://github.com/github.com:bhanuc/octonode.git
+35 silly lockFile f98e5d8d-m-github-com-bhanuc-octonode-git git://github.com/github.com:bhanuc/octonode.git
+36 info maybeGithub Attempting github.com:bhanuc/octonode.git from git+ssh://git@github.com:github.com:bhanuc/octonode.git
+37 silly lockFile cb3092c4-m-github-com-bhanuc-octonode-git git@github.com:github.com:bhanuc/octonode.git
+38 verbose lock git@github.com:github.com:bhanuc/octonode.git /home/bhanuc/.npm/cb3092c4-m-github-com-bhanuc-octonode-git.lock
+39 verbose addRemoteGit [ 'git@github.com:github.com:bhanuc/octonode.git', 'master' ]
+40 error git clone git@github.com:github.com:bhanuc/octonode.git Cloning into bare repository '/home/bhanuc/.npm/_git-remotes/git-github-com-github-com-bhanuc-octonode-git-cb3092c4'...
+40 error git clone git@github.com:github.com:bhanuc/octonode.git Warning: Permanently added the RSA host key for IP address '192.30.252.129' to the list of known hosts.
+40 error git clone git@github.com:github.com:bhanuc/octonode.git Permission denied (publickey).
+40 error git clone git@github.com:github.com:bhanuc/octonode.git fatal: Could not read from remote repository.
+40 error git clone git@github.com:github.com:bhanuc/octonode.git
+40 error git clone git@github.com:github.com:bhanuc/octonode.git Please make sure you have the correct access rights
+40 error git clone git@github.com:github.com:bhanuc/octonode.git and the repository exists.
+41 silly lockFile cb3092c4-m-github-com-bhanuc-octonode-git git@github.com:github.com:bhanuc/octonode.git
+42 silly lockFile cb3092c4-m-github-com-bhanuc-octonode-git git@github.com:github.com:bhanuc/octonode.git
+43 silly lockFile 64d205c4-t-github-com-bhanuc-octonode-git git@github.com:bhanuc/octonode.git
+44 silly lockFile 64d205c4-t-github-com-bhanuc-octonode-git git@github.com:bhanuc/octonode.git
+45 error notarget No compatible version found: git@'github.com:bhanuc/octonode.git'
+45 error notarget Valid install targets:
+45 error notarget ["0.1.0","0.1.1","0.1.2","0.1.3","0.1.4","0.1.5"]
+45 error notarget
+45 error notarget This is most likely not a problem with npm itself.
+45 error notarget In most cases you or one of your dependencies are requesting
+45 error notarget a package version that doesn't exist.
+46 error System Linux 3.19.0-28-generic
+47 error command "/usr/bin/node" "/usr/bin/npm" "install" "git@github.com:bhanuc/octonode.git" "--save"
+48 error cwd /home/bhanuc/Kalam/app
+49 error node -v v0.10.40
+50 error npm -v 1.4.28
+51 error code ETARGET
+52 verbose exit [ 1, true ]
