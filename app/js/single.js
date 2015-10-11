@@ -211,6 +211,7 @@ function generatecourse(method, source_type) {
 }
 
 function uploadgit() {
+  toggle_loader();
   var course = getcourse()
   var dir = path.join(localStorage.appData, course.number);
   var host = getelem('host').value;
@@ -222,7 +223,22 @@ function uploadgit() {
     password: password
   });
   var ghrepo = client.repo(reponame);
+  tree(dir, function(err, ts) {
+    if (err) {
+      alertify.error(err)
+      toggle_loader();
+    } else {
+      //Check the old tree and compare it with new tree and correspondingly add git updates
+      if(course.old_tree){
 
+      } else {
+        
+      }
+      //update the tree as the last step after the successful push
+      update_single_field('old_tree', tree);
+      toggle_loader();
+    }
+  });
   client.get('/user', {}, function(err, status, body, headers) {
     console.log('stage1')
     if (err) {
@@ -236,26 +252,16 @@ function uploadgit() {
         if (err) {
           alertify.error("You Need to have push Access to the Repository.Please check the Repository Format")
         } else {
-          ghrepo.ref('head', function(err3, res) {
-            if (err) {
-              alertify.error("Reference not found")
-            } else {
-              sha = res[0]['object']['sha']
-              ghrepo.create_reference('gh-pages4', sha, function(err, res) {
-                console.log(err, res)
-              })
-            }
-          });
-          // ghrepo.contents('', "gh-pages", function(err, result) {
-          //   // if (err) { //Need to create the gh-pages branch
-          //"c973eb2190ad08c4c3ed1e720814d6bb54f5a9a7"
-          // {ref: "refs/heads/gh-pages2", sha: "c973eb2190ad08c4c3ed1e720814d6bb54f5a9a7"}
-          //{ref: "refs/heads/gh-pages2", sha: "c973eb2190ad08c4c3ed1e720814d6bb54f5a9a7"}
-
-
-          //   // } else {
-
-          //   // }
+          toggle_loader();
+          // ghrepo.ref('head', function(err3, res) {
+          //   if (err) {
+          //     alertify.error("Reference not found")
+          //   } else {
+          //     sha = res[0]['object']['sha']
+          //     ghrepo.create_reference('gh-pages4', sha, function(err, res) {
+          //       console.log(err, res)
+          //     })
+          //   }
           // });
         }
       });
@@ -293,6 +299,7 @@ function uploadsftp() {
     checker = 0
   }
   if (checker) {
+    toggle_loader();
     client.scp(dir, url, function(err) {
       if (!err) {
         alertify.success('Upload has been successful');
@@ -306,7 +313,9 @@ function uploadsftp() {
 //This function toggles the modal based to the id provided
 function toggle_modal(id) {
   el = document.getElementById(id);
-  el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+  if (el) {
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+  }
 }
 
 //This function toggles the modal based to the id provided

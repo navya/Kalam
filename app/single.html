@@ -178,7 +178,7 @@
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggle_modal('git')">Cancel</button>
 </div>
 </div>
-<div class="mdl-spinner mdl-js-spinner is-active mdl-spinner--single-color" id="loader"></div>
+<div class="mdl-spinner mdl-js-spinner " id="loader"></div>
 <a id="up-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="gruntcourse()">Save Course</a>
 <a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','sftp')">Upload Course</a>
 <a id="upload-git" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','git')">Push on Github</a>
@@ -196,6 +196,7 @@ window.saveAs = require('./js/FileSaver.js')
 <script src="js/db_func.js"></script>
 <script src="js/all.js"></script>
 <script src="js/single.js"></script>
+<script src="js/git.js"></script>
 <script src="vendor/Kalam/env_config.js"></script>
 <script src="vendor/Kalam/context_menu.js"></script>
 <script src="vendor/Kalam/external_links.js"></script>
