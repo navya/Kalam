@@ -155,6 +155,7 @@ function generatezip(course, compiledsource, files, themepath) {
     type: "blob"
   });
   saveAs(content, "course.zip");
+  toggle_loader();
 }
 
 function createfolder(course, compiledsource, files, themepath, method) {
@@ -181,11 +182,13 @@ function createfolder(course, compiledsource, files, themepath, method) {
   alertify.success("Folder has Been Created")
   // uploadsftp()
   toggle_modal(method)
+  toggle_loader();
 }
 
 
 
 function generatecourse(method, source_type) {
+  toggle_loader();
   var course = getcourse()
   var compiledsource = {};
   var filename = path.join(__dirname, 'themes', 'settings.json');
@@ -238,8 +241,8 @@ function uploadgit() {
               alertify.error("Reference not found")
             } else {
               sha = res[0]['object']['sha']
-              ghrepo.create_reference('gh-pages4',sha,function(err,res){
-                console.log(err,res)
+              ghrepo.create_reference('gh-pages4', sha, function(err, res) {
+                console.log(err, res)
               })
             }
           });
@@ -300,9 +303,16 @@ function uploadsftp() {
 
 }
 
+//This function toggles the modal based to the id provided
 function toggle_modal(id) {
   el = document.getElementById(id);
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+//This function toggles the modal based to the id provided
+function toggle_loader() {
+  var item = document.querySelector('#loader') // Using a class instead, see note below.
+  item.classList.toggle('is-active');
 }
 
 function iitksettings() {
@@ -342,7 +352,7 @@ function Upload_attachments() {
       return function(e) {
         var data_url = e.target.result.split('base64,')[1]
         var buffer = new Buffer(data_url, 'base64');
-        fs.writeFileSync(tmpname,  buffer);
+        fs.writeFileSync(tmpname, buffer);
         callback()
       };
     })(f);

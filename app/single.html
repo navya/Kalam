@@ -58,10 +58,13 @@
     padding:15px;
     text-align:center;
     }
-    .overlay {
-    border:1px solid #000;
-    background-color: #fff;
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 10000;
     }
+
     </style>
   </head>
   <body>
@@ -175,6 +178,7 @@
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="toggle_modal('git')">Cancel</button>
 </div>
 </div>
+<div class="mdl-spinner mdl-js-spinner is-active mdl-spinner--single-color" id="loader"></div>
 <a id="up-notes" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="gruntcourse()">Save Course</a>
 <a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','sftp')">Upload Course</a>
 <a id="upload-git" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','git')">Push on Github</a>
