@@ -1,7 +1,6 @@
 var editor = new MediumEditor('[data-toggle="pen"]');
 var github = require('octonode');
 
-
 var getelem = document.getElementById.bind(document),
   fs = require('fs'),
   path = require('path');
@@ -225,101 +224,128 @@ function uploadgit() {
     password: password
   });
   var ghrepo = client.repo(reponame);
-  //create a tree
-  tree(dir, function(err, ts) {
-    if (err) {
-      alertify.error(err)
-      toggle_loader();
-    } else {
-      //Check the old tree and compare it with new tree and correspondingly add git updates
-      if (course.old_tree) {
 
-      } else {
-        fs.readdir(dir, function(err, list) {
-          if (err) {
-            return done(err);
+  if (course.old_tree) {
+    console.log('already tree exists, now update is required')
+    actionDiff(dir, course.old_tree, function(err, diff) {
+      for (var i = diff.length - 1; i >= 0; i--) {
+        if (diff[i].kind == 'D') {
+          var check = 0;
+          for (var j = diff.length - 1; j >= 0; j--) {
+            if (diff[j].kind == 'N' && diff[j].rhs == diff[i].lhs) {
+              check = 1;
+              break;
+            }
           }
-          var pending = list.length;
-          if (!pending) {
-            return done(null, function() {
-              console.log('not pending')
+          var lhs = diff[i].lhs;
+          var diffpath = diff[i].path;
+          var relPath = lhs.substr(lhs.indexOf(dir) + dir.length + 1);
+          if (check) { //File was Updated, Call the update function
+            var s = fs.ReadStream(lhs);
+            var shasum2 = Crypto.createHash('sha1');
+            var FileData = '';
+            s.on('data', function(d) {
+              shasum2.update(d);
+              FileData += d;
             });
-          }
-          console.log(dir)
-          list.forEach(function(file) {
-            var filepath = path.join(dir, file);
-            fs.stat(filepath, function(err, stat) {
-              if (stat && stat.isDirectory()) {
-                tree(filepath, function(err, res) {
-                  if (!--pending) {
-                    // done(null, function() {
-
-                    // });
-                  }
-                });
-              } else {
-                var s = fs.ReadStream(filepath);
-                var filedata = ''
-                s.on('data', function(d) {
-                  filedata += d;
-                });
-                s.on('error', function(err) {
+            s.on('error', function(err) {
+              console.log(err)
+            });
+            s.on('end', function() {
+              ghrepo.contents(relPath, function(err, success) {
+                if (err) {
                   console.log(err)
-                });
-                s.on('end', function() {
-                  ghrepo.createContents(filepath.substr(filepath.indexOf(dir)+dir.length+1), 'added a file', filedata,"gh-pages", function(err, soln) {
+                  alertify.error("Issue :" + err);
+                } else {
+                  ghrepo.updateContents(relPath, 'updated ' + relPath, FileData, success.sha, 'gh-pages', function(err, success) {
                     if (err) {
                       console.log(err)
-                      alertify.error("Your File was not able to upload." + err);
+                      alertify.error("Your File was not able to Update." + err);
                     } else {
-                      alertify.success("successfully added " + file);
+                      alertify.success("successfully updated " + relPath);
                     }
-                  });
-                  if (!--pending) {
-                    done(null, function() {
+                  })
+                }
+              });
 
-                    });
-                  }
-
-                })
-              };
             });
-          });
-        })
-      }
-      //update the tree as the last step after the successful push
-      update_single_field('old_tree', JSON.stringify(tree));
-      toggle_loader();
-    }
-  });
-  client.get('/user', {}, function(err, status, body, headers) {
-    console.log('stage1')
-    if (err) {
-      console.log(err)
-      alertify.error("Incorrect Credentials or check Connection")
-    } else {
-      console.log('stage2')
-      ghrepo.collaborators(username, function(err2, result) {
-        console.log(err2)
-        console.log('stage3')
+          } else {
+            ghrepo.contents(relPath, function(err, success) {
+              if (err) {
+                console.log(err)
+                alertify.error("Issue :" + err);
+              } else {
+                ghrepo.deleteContents(relPath, 'deleted ' + relPath, diffpath[diffpath.length - 1], 'gh-pages', function(err, sucess) {
+                  if (err) {
+                    console.log(err)
+                    alertify.error("Your File was not able to be Deleted." + err);
+                  } else {
+                    alertify.success("successfully updated " + relPath);
+                  }
+                })
+              }
+            });
+
+          }
+          diff = diff.filter(function(el) {
+            return el.lhs != lhs || el.rhs != lhs
+          })
+        } else if (diff[i].kind == 'N') {
+          var check = 0;
+          for (var j = diff.length - 1; j >= 0; j--) {
+            if (diff[j].kind == 'D' && diff[j].lhs == diff[i].rhs) {
+              check = 1;
+              break;
+            }
+          }
+          if (check) { //Update case, no action needed will be handled when the delete element be met
+          } else { // A new addtion, create content
+            var rhs = diff[i].rhs;
+            var s = fs.ReadStream(rhs);
+            var FileData = '';
+            var shasum1 = Crypto.createHash('sha1');
+            s.on('data', function(d) {
+              FileData += d;
+              shasum1.update(d);
+
+            });
+            s.on('error', function(err) {
+              console.log(err)
+            });
+            s.on('end', function() {
+              var relPath = rhs.substr(rhs.indexOf(dir) + dir.length + 1);
+              ghrepo.createContents(relPath, 'created ' + relPath, FileData, 'gh-pages', function(err, sucess) {
+                if (err) {
+                  console.log(err)
+                  alertify.error("Your File was not able to Created." + err);
+                } else {
+                  alertify.success("successfully updated " + relPath);
+                }
+              })
+            })
+          }
+        }
+      };
+    })
+  } else {
+    actionTree(dir, function(filePath, Filedata) {
+      var relPath = filePath.substr(filepath.indexOf(dir) + dir.length + 1);
+      ghrepo.createContents(relPath, 'added ' + relPath, Filedata, "gh-pages", function(err, soln) {
         if (err) {
-          alertify.error("You Need to have push Access to the Repository.Please check the Repository Format")
+          console.log(err)
+          alertify.error("Your File was not able to upload." + err);
         } else {
-          toggle_loader();
-          // ghrepo.ref('head', function(err3, res) {
-          //   if (err) {
-          //     alertify.error("Reference not found")
-          //   } else {
-          //     sha = res[0]['object']['sha']
-          //     ghrepo.create_reference('gh-pages4', sha, function(err, res) {
-          //       console.log(err, res)
-          //     })
-          //   }
-          // });
+          alertify.success("successfully added " + relPath);
         }
       });
-    }
-  });
+    }, function(err, rel) {
+      console.log(err, rel)
+      if (rel) {
+        update_single_field('old_tree', JSON.stringify(rel));
+        toggle_loader();
+      }
+    })
+  }
 }
 
 function uploadsftp() {
