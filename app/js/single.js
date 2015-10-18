@@ -211,7 +211,9 @@ function generatecourse(method, source_type) {
 }
 
 function uploadgit() {
+  //show the loading animation
   toggle_loader();
+  //Get references to relevant references 
   var course = getcourse()
   var dir = path.join(localStorage.appData, course.number);
   var host = getelem('host').value;
@@ -223,19 +225,70 @@ function uploadgit() {
     password: password
   });
   var ghrepo = client.repo(reponame);
+  //create a tree
   tree(dir, function(err, ts) {
     if (err) {
       alertify.error(err)
       toggle_loader();
     } else {
       //Check the old tree and compare it with new tree and correspondingly add git updates
-      if(course.old_tree){
+      if (course.old_tree) {
 
       } else {
-        
+        fs.readdir(dir, function(err, list) {
+          if (err) {
+            return done(err);
+          }
+          var pending = list.length;
+          if (!pending) {
+            return done(null, function() {
+              console.log('not pending')
+            });
+          }
+          console.log(dir)
+          list.forEach(function(file) {
+            var filepath = path.join(dir, file);
+            fs.stat(filepath, function(err, stat) {
+              if (stat && stat.isDirectory()) {
+                tree(filepath, function(err, res) {
+                  if (!--pending) {
+                    // done(null, function() {
+
+                    // });
+                  }
+                });
+              } else {
+                var s = fs.ReadStream(filepath);
+                var filedata = ''
+                s.on('data', function(d) {
+                  filedata += d;
+                });
+                s.on('error', function(err) {
+                  console.log(err)
+                });
+                s.on('end', function() {
+                  ghrepo.createContents(filepath.substr(filepath.indexOf(dir)+dir.length+1), 'added a file', filedata,"gh-pages", function(err, soln) {
+                    if (err) {
+                      console.log(err)
+                      alertify.error("Your File was not able to upload." + err);
+                    } else {
+                      alertify.success("successfully added " + file);
+                    }
+                  });
+                  if (!--pending) {
+                    done(null, function() {
+
+                    });
+                  }
+
+                })
+              };
+            });
+          });
+        })
       }
       //update the tree as the last step after the successful push
-      update_single_field('old_tree', tree);
+      update_single_field('old_tree', JSON.stringify(tree));
       toggle_loader();
     }
   });

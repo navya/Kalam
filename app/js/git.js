@@ -1,3 +1,5 @@
+var CRYpto = require('crypto');
+
 var tree = function(dir, done) {
 	var results = {
 		"path": dir,
@@ -16,7 +18,6 @@ var tree = function(dir, done) {
 			fs.stat(filepath, function(err, stat) {
 				if (stat && stat.isDirectory()) {
 					tree(filepath, function(err, res) {
-						console.log(res, results.children)
 						results.children[dir] = res;
 						if (!--pending) {
 							done(null, results);
@@ -24,7 +25,7 @@ var tree = function(dir, done) {
 					});
 				} else {
 					var s = fs.ReadStream(filepath);
-					var shasum = crypto.createHash(algo);
+					var shasum = CRYpto.createHash('sha1');
 					s.on('data', function(d) {
 						shasum.update(d);
 					});
