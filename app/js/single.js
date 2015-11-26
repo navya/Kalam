@@ -1,3 +1,5 @@
+"use strict";
+
 var editor = new MediumEditor('[data-toggle="pen"]');
 var github = require('octonode');
 
@@ -16,11 +18,11 @@ function updatefield(type) {
 
 function modify_field(str) {
   var tmp = str.split(',')
-  type = tmp[1]
-  id = tmp[0]
+  var type = tmp[1]
+  var id = tmp[0]
   overlay(type)
   getelem('formfield-' + type).dataset.value = id
-  existing_value = (window.course[id] || "");
+  var existing_value = (window.course[id] || "");
   template[type](id, null, existing_value);
   if (type == 'attachments') {
     getelem("formfield-attachments").innerHTML = "";
@@ -29,7 +31,7 @@ function modify_field(str) {
 
 function overlay(type) {
   type = "overlay-" + type;
-  el = document.getElementById(type);
+  var el = document.getElementById(type);
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 }
 
@@ -91,9 +93,9 @@ function bootstrapattachments(course) {
         for (var k = tmpcourse.length - 1; k >= 0; k--) {
           tmp += '<div class="item_heading"> <b>' + tmpcourse[k]["name"] + ':</b> <span id="attach' + k + '" > ' + (tmpcourse[k]["size"]) + ' KB</span></div><br>'
         };
-        str += '<div class="mdl-cell mdl-cell--3-col"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><br><br><span id="' + keys[i] + '" >' + (tmp || "") + '</span></div>'
+        str += '<div class="mdl-cell mdl-cell--3-col  mdl-shadow--2dp" ><div class="mdl-card__actions mdl-card--border"><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '")>' + keys[i] + '</a><div class="mdl-layout-spacer"></div><i onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") class="material-icons">mode_edit</i></div><div class="mdl-card__supporting-text"><span id="' + keys[i] + '" >' + (tmp || "") + '</span></div></div>'
       } else {
-        str += '<div class="mdl-cell mdl-cell--3-col"><div class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect item_heading" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") > <b>' + keys[i] + ':</b> </div><br><br><span id="' + keys[i] + '" >' + (course[keys[i]] || "") + '</span></div>'
+        str += '<div class="mdl-cell mdl-cell--3-col  mdl-shadow--2dp" ><div class="mdl-card__actions mdl-card--border"><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '")>' + keys[i] + '</a><div class="mdl-layout-spacer"></div><i onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") class="material-icons">mode_edit</i></div><div class="mdl-card__supporting-text"><span id="' + keys[i] + '" >' + (course[keys[i]] || "") +'</span></div></div>'
       }
     }
   }
@@ -143,6 +145,7 @@ function generatezip(course, compiledsource, files, themepath) {
       zip.file(files[i], tfile);
     }
   }
+  zip.file(files[i], tfile);
   var down_folder = zip.folder("downloads");
   var downpath = path.join(localStorage.appData, course.number, 'downloads')
   var down_files = getFiles(downpath);

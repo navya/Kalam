@@ -16,9 +16,9 @@ A cross Platform Desktop Client which automates the creation and maintainence We
 
 	Add Assignments/Notes Uploads Support
 
-### Pending features
-	
 	Push to Github Pages
+
+### Pending features
 
 	Implement Custom pages
 

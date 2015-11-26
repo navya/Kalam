@@ -18,7 +18,6 @@
     "fs-jetpack": "^0.7.0",
     "octonode": "git://github.com/bhanuc/octonode",
     "scp2": "^0.2.2",
-    "deep-diff": "~0.3.2",
-    "sha1": "~1.1.1"
+    "deep-diff": "~0.3.2"
   }
 }
