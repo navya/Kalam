@@ -228,8 +228,8 @@ function uploadgit() {
     password: password
   });
   var ghrepo = client.repo(reponame);
-
-  if (course.old_tree) {
+  var forced = document.getElementById('checkbox-git').checked;
+  if (course.old_tree && !forced) {
     console.log('already tree exists, now update is required')
     actionDiff(dir, course.old_tree, function(err, differ) {
       if(!differ){
@@ -335,6 +335,32 @@ function uploadgit() {
           }
         }
       };
+      }
+    })
+  } else if(forced){
+   actionTree(dir, function(filePath, fileData) {
+      var relPath = filePath.substr(filePath.indexOf(dir) + dir.length + 1);
+                    ghrepo.contents(relPath, function(err, success) {
+                if (err) {
+                  console.log(err, filePath,filePath)
+                  alertify.error("Issue :" + err);
+                } else {
+                  ghrepo.updateContents(relPath, 'updated ' + relPath, fileData, success.sha, 'gh-pages', function(err, success) {
+                    if (err) {
+                      console.log(err, filePath,filePath,2)
+                      alertify.error("Your File was not able to Update." + err);
+                    } else {
+                      alertify.success("successfully updated " + relPath);
+                    }
+                  })
+                }
+              });
+    }, function(err, rel) {
+      console.log(err, rel)
+      if (rel) {
+        update_single_field('old_tree', JSON.stringify(rel));
+        toggle_loader();
+         toggle_modal('git');
       }
     })
   } else {
