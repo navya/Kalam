@@ -48,10 +48,10 @@
     left: 35%;
     top: 0px;
     width:100%;
-    height:60%;
+    height:auto;
     text-align:center;
     z-index: 1000;
-    width:300px;
+    width: 40%;
     margin: 100px auto;
     background-color: #fff;
     border:1px solid #000;
@@ -128,15 +128,18 @@
     </div>
   </div>
   <div id="overlay-attachments" class="overlay-modal">
-    <div>You can add Attachments here  <span id="formfield-attachments"></span><br>
-    <input type="file" id="file_modal" multiple/>
-    <button onclick="Upload_attachments()">Upload</button><br>
+    <br>
+    <div>You can add Attachments here  <span id="formfield-attachments"></span><br><br>
+    <input type="file" id="file_modal" multiple/><br><br><br>
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('attachments')">Close</button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="Upload_attachments()">Upload</button>
   </div>
 </div>
 <div id="overlay-textarea"  class="overlay-modal">
   <div>You can Update the <span id="formfield-textarea"></span> below
-  <textarea id="textarea-input" data-toggle="pen" style="width:100%"></textarea>
+  <br>
+  <textarea class="mdl-textfield__input"  id="textarea-input" data-toggle="pen" rows="10" cols="80">Click to Insert Text Here</textarea>
+  <br>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="overlay('textarea')">Close</button> &nbsp;<button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect overlay" onclick="updatefield('textarea')">Update</button>
 </div>
 </div>
@@ -189,8 +192,8 @@
 <a id="upload-sftp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','sftp')">Upload Course</a>
 <a id="upload-git" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" onclick="generatecourse('folder','git')">Push on Github</a>
 <script src="js/material.min.js"></script>
+<script src="vendor/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-window.MediumEditor = require('./bower/medium-editor/dist/js/medium-editor.js')
 window.alertify = require('./js/alertify.min.js')
 window.async = require('./bower/async/dist/async.min.js')
 window._ = require('./bower/underscore/underscore-min.js')

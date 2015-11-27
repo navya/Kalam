@@ -1,6 +1,6 @@
 "use strict";
-
-var editor = new MediumEditor('[data-toggle="pen"]');
+ CKEDITOR.replace( 'textarea-input' );
+// var editor = new MediumEditor('[data-toggle="pen"]');
 var github = require('octonode');
 
 var getelem = document.getElementById.bind(document),
@@ -46,10 +46,11 @@ var template = {
   },
   "textarea": function(id, get, set) {
     if (get) {
-      return getelem('textarea-input').value
+      return CKEDITOR.instances['textarea-input'].getData();
     }
     if (set) {
-      return editor.setContent(set || 'Click here to edit', 0)
+       return CKEDITOR.instances['textarea-input'].setData(set ||  'Click here to edit');
+      // return editor.setContent(set || 'Click here to edit', 0)
     }
   }
 }
@@ -394,7 +395,7 @@ function uploadsftp() {
 
 //This function toggles the modal based to the id provided
 function toggle_modal(id) {
-  el = document.getElementById(id);
+  var el = document.getElementById(id);
   if (el) {
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
   }
