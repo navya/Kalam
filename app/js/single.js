@@ -231,18 +231,23 @@ function uploadgit() {
 
   if (course.old_tree) {
     console.log('already tree exists, now update is required')
-    actionDiff(dir, course.old_tree, function(err, diff) {
-      for (var i = diff.length - 1; i >= 0; i--) {
-        if (diff[i].kind == 'D') {
+    actionDiff(dir, course.old_tree, function(err, differ) {
+      if(!differ){
+        alertify.success("No File Needs update");
+        toggle_loader();
+        toggle_modal('git');
+      } else {
+      for (var i = differ.length - 1; i >= 0; i--) {
+        if (differ[i].kind == 'D') {
           var check = 0;
-          for (var j = diff.length - 1; j >= 0; j--) {
-            if (diff[j].kind == 'N' && diff[j].rhs == diff[i].lhs) {
+          for (var j = differ.length - 1; j >= 0; j--) {
+            if (differ[j].kind == 'N' && differ[j].rhs == differ[i].lhs) {
               check = 1;
               break;
             }
           }
-          var lhs = diff[i].lhs;
-          var diffpath = diff[i].path;
+          var lhs = differ[i].lhs;
+          var diffpath = differ[i].path;
           var relPath = lhs.substr(lhs.indexOf(dir) + dir.length + 1);
           if (check) { //File was Updated, Call the update function
             var s = fs.ReadStream(lhs);
@@ -291,20 +296,20 @@ function uploadgit() {
             });
 
           }
-          diff = diff.filter(function(el) {
+          differ = differ.filter(function(el) {
             return el.lhs != lhs || el.rhs != lhs
           })
-        } else if (diff[i].kind == 'N') {
+        } else if (differ[i].kind == 'N') {
           var check = 0;
-          for (var j = diff.length - 1; j >= 0; j--) {
-            if (diff[j].kind == 'D' && diff[j].lhs == diff[i].rhs) {
+          for (var j = differ.length - 1; j >= 0; j--) {
+            if (differ[j].kind == 'D' && differ[j].lhs == differ[i].rhs) {
               check = 1;
               break;
             }
           }
           if (check) { //Update case, no action needed will be handled when the delete element be met
           } else { // A new addtion, create content
-            var rhs = diff[i].rhs;
+            var rhs = differ[i].rhs;
             var s = fs.ReadStream(rhs);
             var FileData = '';
             var shasum1 = Crypto.createHash('sha1');
@@ -330,10 +335,11 @@ function uploadgit() {
           }
         }
       };
+      }
     })
   } else {
     actionTree(dir, function(filePath, Filedata) {
-      var relPath = filePath.substr(filepath.indexOf(dir) + dir.length + 1);
+      var relPath = filePath.substr(filePath.indexOf(dir) + dir.length + 1);
       ghrepo.createContents(relPath, 'added ' + relPath, Filedata, "gh-pages", function(err, soln) {
         if (err) {
           console.log(err)
@@ -347,6 +353,7 @@ function uploadgit() {
       if (rel) {
         update_single_field('old_tree', JSON.stringify(rel));
         toggle_loader();
+         toggle_modal('git');
       }
     })
   }
@@ -389,7 +396,7 @@ function uploadsftp() {
         toggle_modal('sftp');
         toggle_loader();
       } else {
-        alertify.error(err);
+        alertify.error(JSON.stringify(err));
         toggle_modal('sftp');
         toggle_loader();
       }

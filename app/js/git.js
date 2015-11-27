@@ -66,7 +66,8 @@ var actionDiff = function(dir, old_tree, done) {
 					tree(filepath, function(err, res) {
 						results.children[dir] = res;
 						if (!--pending) {
-							var differences = diff(JSON.parse(old_tree), results);
+							var tmptree = JSON.parse(old_tree);
+							var differences = diff(tmptree, results);
 							done(null, differences);
 						}
 					});
@@ -83,7 +84,8 @@ var actionDiff = function(dir, old_tree, done) {
 						var d = shasum.digest('hex');
 						results.children[d] = filepath
 						if (!--pending) {
-							var differences = diff(JSON.parse(old_tree), results);
+							var tmptree = JSON.parse(old_tree);
+							var differences = diff(tmptree, results);
 							done(null, differences);
 						}
 

@@ -29,17 +29,18 @@
           {{#if schedule}}
           <a class="mdl-navigation__link" href="#schedule"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Schedule</a>{{/if}}
           {{#if assignments}}
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Assignments</a>{{/if}}
+          <a class="mdl-navigation__link" href="#assignments"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Assignments</a>{{/if}}
           {{#if notes}}
           <a class="mdl-navigation__link" href="#notes"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">assignment</i>Lecture Notes</a>{{/if}}
           {{#if announcements}}
           <a class="mdl-navigation__link" href="#announcements"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">event</i>Announcements</a>{{/if}}
           {{#if grading_schema}}
           <a class="mdl-navigation__link" href="#grading_schema"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">alarm_on</i>Grading Policy</a>{{/if}}
+          {{#if references}}
+          <a class="mdl-navigation__link" href="references"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">alarm_on</i>References</a>{{/if}}
           {{#if contact}}
           <a class="mdl-navigation__link" href="#contact"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">contacts</i>Contact Details</a>{{/if}}
           <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
       </div>
       <main class="mdl-layout__content section--center mdl-color--grey-100">
@@ -49,6 +50,15 @@
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card__supporting-text">
             {{{contact}}}
+          </div>
+        </div>
+        {{/if}}
+        {{#if announcements}}
+        <a name="announcements"></a>
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-card__supporting-text">
+            <h4>Announcements</h4>
+            {{{announcements}}}
           </div>
         </div>
         {{/if}}
@@ -112,15 +122,6 @@
           <div class="mdl-card__supporting-text">
             <h4>Grading Schema</h4>
             {{{grading_schema}}}
-          </div>
-        </div>
-        {{/if}}
-        {{#if announcements}}
-        <a name="announcements"></a>
-        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-          <div class="mdl-card__supporting-text">
-            <h4>Announcements</h4>
-            {{{announcements}}}
           </div>
         </div>
         {{/if}}
