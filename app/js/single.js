@@ -195,6 +195,8 @@ function generatecourse(method, source_type) {
   var course = getcourse()
   var compiledsource = {};
   var filename = path.join(__dirname, 'themes', 'settings.json');
+  var dir = path.join(localStorage.appData, course.number);
+  fs.writeFileSync(path.join(dir,"Data.json"), JSON.stringify(course));
   var jsonm = require(filename);
   var themename = jsonm.ActiveTheme;
   var themepath = path.join(__dirname, 'themes', themename);
