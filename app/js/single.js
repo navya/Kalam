@@ -48,7 +48,7 @@ var template = {
     if (get) {
       return CKEDITOR.instances['textarea-input'].getData();
     }
-    if (set) {
+    if (set || set === "") {
        return CKEDITOR.instances['textarea-input'].setData(set ||  'Click here to edit');
       // return editor.setContent(set || 'Click here to edit', 0)
     }
@@ -94,9 +94,9 @@ function bootstrapattachments(course) {
         for (var k = tmpcourse.length - 1; k >= 0; k--) {
           tmp += '<div class="item_heading"> <b>' + tmpcourse[k]["name"] + ':</b> <span id="attach' + k + '" > ' + (tmpcourse[k]["size"]) + ' KB</span></div><br>'
         };
-        str += '<div class="mdl-cell mdl-cell--3-col  mdl-shadow--2dp" ><div class="mdl-card__actions mdl-card--border"><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '")>' + keys[i] + '</a><div class="mdl-layout-spacer"></div><i onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") class="material-icons">mode_edit</i></div><div class="mdl-card__supporting-text"><span id="' + keys[i] + '" >' + (tmp || "") + '</span></div></div>'
+        str += '<div class="mdl-cell mdl-cell--3-col  mdl-shadow--2dp"  style="height: 380px;overflow: auto;"><div class="mdl-card__actions mdl-card--border"><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '")>' + keys[i] + '</a><div class="mdl-layout-spacer"></div><i onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") class="material-icons">mode_edit</i></div><div class="mdl-card__supporting-text"><span id="' + keys[i] + '" >' + (tmp || "") + '</span></div></div>'
       } else {
-        str += '<div class="mdl-cell mdl-cell--3-col  mdl-shadow--2dp" ><div class="mdl-card__actions mdl-card--border"><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '")>' + keys[i] + '</a><div class="mdl-layout-spacer"></div><i onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") class="material-icons">mode_edit</i></div><div class="mdl-card__supporting-text"><span id="' + keys[i] + '" >' + (course[keys[i]] || "") +'</span></div></div>'
+        str += '<div class="mdl-cell mdl-cell--3-col  mdl-shadow--2dp" style="height: 380px;overflow: auto;" ><div class="mdl-card__actions mdl-card--border"><a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '")>' + keys[i] + '</a><div class="mdl-layout-spacer"></div><i onclick=modify_field("' + keys[i] + ',' + themefields[keys[i]] + '") class="material-icons">mode_edit</i></div><div class="mdl-card__supporting-text"><span id="' + keys[i] + '" >' + (course[keys[i]] || "") +'</span></div></div>'
       }
     }
   }
@@ -387,6 +387,11 @@ function uploadsftp() {
       if (!err) {
         alertify.success('Upload has been successful');
         toggle_modal('sftp');
+        toggle_loader();
+      } else {
+        alertify.error(err);
+        toggle_modal('sftp');
+        toggle_loader();
       }
     })
   }

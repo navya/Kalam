@@ -44,6 +44,14 @@
       </div>
       <main class="mdl-layout__content section--center mdl-color--grey-100">
       <div class="mdl-grid ">
+        {{#if contact}}
+        <a name="contact"></a>
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-card__supporting-text">
+            {{{contact}}}
+          </div>
+        </div>
+        {{/if}}
         {{#if objective}}
         <a name="objective"></a>
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
@@ -95,14 +103,6 @@
           <div class="mdl-card__supporting-text">
             <h4>References</h4>
             {{{references}}}
-          </div>
-        </div>
-        {{/if}}
-        {{#if contact}}
-        <a name="contact"></a>
-        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-          <div class="mdl-card__supporting-text">
-            {{{contact}}}
           </div>
         </div>
         {{/if}}

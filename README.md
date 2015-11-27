@@ -28,7 +28,9 @@ A cross Platform Desktop Client which automates the creation and maintainence We
 
 ##To run -
  Download a Installer from [here](https://github.com/navya/Kalam/releases). 
- I do not own a mac so currently there are not Mac Builds available. Would appreciate if anyone can 
+ I do not own a mac so currently there are not Mac Builds available.
+ 
+  Would appreciate if anyone can 
  volunteer in creating Mac Installers. Its a simple 2 step process.
 
 ##Dev Build Process
@@ -37,6 +39,7 @@ A cross Platform Desktop Client which automates the creation and maintainence We
 
 ##Contributions : 
 Contributions are welcomed.
+
 I accept pull requests and guaranteed reply back within a day.
 Just open a issue. Before Working on anything major, please check if its already being worked upon.
 
