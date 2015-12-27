@@ -5,6 +5,8 @@
 
 var app = require('app');
 var BrowserWindow = require('browser-window');
+var updater = require('electron-updater');
+
 var env = require('./vendor/Kalam/env_config');
 var devHelper = require('./vendor/Kalam/dev_helper');
 var windowStateKeeper = require('./vendor/Kalam/window_state');
@@ -17,35 +19,68 @@ var mainWindowState = windowStateKeeper('index', {
     height: 600
 });
 
-app.on('ready', function () {
+app.on('ready', function() {
+    if (env.name === 'production') {
+        updater.on('ready', function() {
+            mainWindow = new BrowserWindow({
+                x: mainWindowState.x,
+                y: mainWindowState.y,
+                width: mainWindowState.width,
+                height: mainWindowState.height
+            });
 
-    mainWindow = new BrowserWindow({
-        x: mainWindowState.x,
-        y: mainWindowState.y,
-        width: mainWindowState.width,
-        height: mainWindowState.height
-    });
+            if (mainWindowState.isMaximized) {
+                mainWindow.maximize();
+            }
 
-    if (mainWindowState.isMaximized) {
-        mainWindow.maximize();
-    }
+            if (env.name === 'test') {
+                mainWindow.loadUrl('file://' + __dirname + '/spec.html');
+            } else {
+                mainWindow.loadUrl('file://' + __dirname + '/index.html');
+            }
 
-    if (env.name === 'test') {
-        mainWindow.loadUrl('file://' + __dirname + '/spec.html');
+            mainWindow.on('close', function() {
+                mainWindowState.saveState(mainWindow);
+            });
+        });
+        updater.on('updateRequired', function() {
+            app.quit();
+        })
+        updater.on('updateAvailable', function() {
+            mainWindow.webContents.send('update-available');
+        });
+        updater.start()
     } else {
-        mainWindow.loadUrl('file://' + __dirname + '/index.html');
+        mainWindow = new BrowserWindow({
+            x: mainWindowState.x,
+            y: mainWindowState.y,
+            width: mainWindowState.width,
+            height: mainWindowState.height
+        });
+
+        if (mainWindowState.isMaximized) {
+            mainWindow.maximize();
+        }
+
+        if (env.name === 'test') {
+            mainWindow.loadUrl('file://' + __dirname + '/spec.html');
+        } else {
+            mainWindow.loadUrl('file://' + __dirname + '/index.html');
+        }
+
+        if (env.name !== 'production') {
+            devHelper.setDevMenu();
+            mainWindow.openDevTools();
+        }
+
+        mainWindow.on('close', function() {
+            mainWindowState.saveState(mainWindow);
+        });
+
     }
 
-    if (env.name !== 'production') {
-        devHelper.setDevMenu();
-        mainWindow.openDevTools();
-    }
-
-    mainWindow.on('close', function () {
-        mainWindowState.saveState(mainWindow);
-    });
 });
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
     app.quit();
 });

@@ -15,10 +15,11 @@
     "target": "development"
   },
   "dependencies": {
+    "deep-diff": "~0.3.3",
+    "diff": "~2.2.1",
+    "electron-plugins": "0.0.4",
     "fs-jetpack": "^0.7.0",
     "octonode": "git://github.com/bhanuc/octonode",
-    "scp2": "^0.2.2",
-    "deep-diff": "~0.3.3",
-    "diff": "~2.2.1"
+    "scp2": "^0.2.2"
   }
 }

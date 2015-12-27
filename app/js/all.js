@@ -3,6 +3,8 @@ var app = remote.require('app')
 var appData = app.getPath("appData");
 var path = require('path');
 var fs = require('fs');
+var plugins = require('electron-plugins');
+var ipc = require('ipc');
 
 function toggleabout() {
 	el = document.getElementById("about");
@@ -20,3 +22,16 @@ function bootstrapFolder() {
 	}
   localStorage.setItem('appData', dir2);
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var context = { document: document }
+    plugins.load(context, function (err, loaded) {
+        if(err) return console.error(err)
+        console.log('Plugins loaded successfully.')
+    })
+})
+
+ipc.on('update-available', function () {
+    console.log('there is an update available for download')
+})
